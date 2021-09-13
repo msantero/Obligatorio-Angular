@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     console.log(this.nombre);
     console.log(this.password);
 
-    usuario: Usuario | undefined;
+    //usuario: Usuario | undefined;
   }
 
   onNotify() {
