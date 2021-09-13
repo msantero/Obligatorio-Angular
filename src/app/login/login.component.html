@@ -45,14 +45,13 @@
 
           <input type="password" placeholder="password" id="password" name="password" required>
 
-          <button type="submit" title="Ingresar" name="Ingresar">Login</button>
+          <button type="submit" title="Ingresar" name="Ingresar" [routerLink]="['dashboard']">Login</button>
         </form>
         <div class="pie-form">
-          <a href="#">¿No tenés Cuenta? Registrate</a>
+          <a [routerLink]="['registro']">
+            ¿No tenés Cuenta? Registrate
+          </a>
         </div>
-      </div>
-      <div class="inferior">
-        <a href="#">Volver</a>
       </div>
     </div>
   </div>
