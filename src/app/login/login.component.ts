@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioAlertsComponent } from '../usuario-alerts/usuario-alerts.component';
-import { usuarios } from '../usuarios';
+import { Usuario } from '../usuarios';
 
 @Component({
   selector: 'app-login',
