@@ -41,9 +41,13 @@
           Registro vendedor
         </div>
         <form id="registroform">
-          <input type="text" name="usuario" id="login" placeholder="usuario" required>
+          <input type="text" name="usuario" id="login" placeholder="usuario" required="required">
 
-          <input type="password" placeholder="password" id="password" name="password" required>
+          <input type="password" placeholder="password" id="password" name="password" required="required">
+
+          <input type="password" [(ngModel)]="confirmPassword" name="password"   placeholder="Repita el password"
+          required="required"
+        />
 
           <button type="submit" title="Ingresar" name="Ingresar" [routerLink]="['dashboard']">Registrarse</button>
         </form>
