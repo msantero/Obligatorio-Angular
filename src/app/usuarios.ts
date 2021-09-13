@@ -1,6 +1,6 @@
 export interface Usuario {
   id: number;
-  name: string;
+  nombre: string;
   password: string;
   token: string;
 }
@@ -8,13 +8,13 @@ export interface Usuario {
 export const usuarios = [
   {
     id: 1,
-    name: 'Marcos',
+    nombre: 'Marcos',
     password: '123',
     token: 'dfgdfg'
   },
   {
     id: 1,
-    name: 'Pedro',
+    nombre: 'Pedro',
     password: '456',
     token: 'sdfsdffff'
   }
