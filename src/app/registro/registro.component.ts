@@ -7,8 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistroComponent implements OnInit {
 
-  constructor() { }
+  nombre: string;
+  password: string;
 
+  constructor() {}
+
+  ngOnInit() {}
+
+  registro() {
+    console.log(this.nombre);
+    console.log(this.password);
+  }
   ngOnInit() {
   }
 
