@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-
   nombre: string;
   password: string;
+  confirmPassword: string;
 
   constructor() {}
 
@@ -18,7 +18,4 @@ export class RegistroComponent implements OnInit {
     console.log(this.nombre);
     console.log(this.password);
   }
-  ngOnInit() {
-  }
-
 }
