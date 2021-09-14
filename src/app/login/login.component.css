@@ -27,7 +27,7 @@ body {
 }
 
 .titulo {
-  font-size: 250%;
+  font-size: 130%;
   color: #bbe1fa;
   text-align: center;
   margin-bottom: 20px;
@@ -129,9 +129,8 @@ body {
 .inferior label {
   display: block;
   text-decoration: none;
-  color: #100f11;
+  color: #240642;
   margin-bottom: 3px;
-  background-color: #0f4c75;
 }
 
 .inferior a:hover {

@@ -18,12 +18,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login() {
+    this.mensaje = '';
     console.log(this.nombre);
     console.log(this.password);
 
-    if (this.password === '' || this.nombre === '') {
-      let mensaje = 'Debe ingresar nombre y password.';
-      window.alert(mensaje);
+    if (!this.password || !this.nombre) {
+      this.mensaje = 'Debe ingresar el nombre y password';
+      window.alert(this.mensaje);
     }
 
     //let usuario = new Usuario();
