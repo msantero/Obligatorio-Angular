@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioAlertsComponent } from '../usuario-alerts/usuario-alerts.component';
 import { Usuario } from '../usuarios';
 import { FormsModule } from '@angular/forms';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   //let usuario = new Usuario();
   usuario: Usuario | undefined;
 
-  constructor() {}
+  constructor(private _router: Router) {}
 
   ngOnInit() {}
 
