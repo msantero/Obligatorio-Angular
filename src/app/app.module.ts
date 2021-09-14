@@ -29,7 +29,8 @@ import { UsuarioAlertsComponent } from './usuario-alerts/usuario-alerts.componen
     AppComponent,
     LoginComponent,
     RegistroComponent,
-    DashboardComponent
+    DashboardComponent,
+    UsuarioAlertsComponent
   ],
   bootstrap: [AppComponent]
 })

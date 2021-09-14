@@ -13,6 +13,9 @@ export class LoginComponent implements OnInit {
   password: string;
   mensaje: string;
 
+  //let usuario = new Usuario();
+  usuario: Usuario | undefined;
+
   constructor() {}
 
   ngOnInit() {}
@@ -27,9 +30,7 @@ export class LoginComponent implements OnInit {
       window.alert(this.mensaje);
     }
 
-    //let usuario = new Usuario();
-    let usuario: Usuario | undefined;
-    usuario = {
+    this.usuario = {
       id: 1,
       nombre: this.nombre,
       password: this.password,

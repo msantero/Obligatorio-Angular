@@ -54,8 +54,11 @@
             ¿No tenés Cuenta? Registrate
           </a>
         </div>
-        <app-usuario-alerts [usuario]={{mensaje}} (notify)="onNotify()">
-        </app-usuario-alerts>
+
+        <p *ngIf="usuario.token">
+          <app-usuario-alerts [usuario]="usuario" (notify)="onNotify()">
+          </app-usuario-alerts>
+        </p>
 
         <div class="inferior"><label> {{mensaje}}</label>
         </div>
