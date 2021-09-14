@@ -21,6 +21,11 @@ export class LoginComponent implements OnInit {
     console.log(this.nombre);
     console.log(this.password);
 
+    if (this.password === '' || this.nombre === '') {
+      let mensaje = 'Debe ingresar nombre y password.';
+      window.alert(mensaje);
+    }
+
     //let usuario = new Usuario();
     let usuario: Usuario | undefined;
     usuario = {

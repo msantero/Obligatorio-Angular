@@ -126,11 +126,12 @@ body {
   margin-bottom: 3px;
 }
 
-.inferior a {
+.inferior label {
   display: block;
   text-decoration: none;
-  color: #bbe1fa;
+  color: #100f11;
   margin-bottom: 3px;
+  background-color: #0f4c75;
 }
 
 .inferior a:hover {
