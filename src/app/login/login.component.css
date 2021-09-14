@@ -126,6 +126,13 @@ body {
   margin-bottom: 3px;
 }
 
+.inferior a {
+  display: block;
+  text-decoration: none;
+  color: #bbe1fa;
+  margin-bottom: 3px;
+}
+
 .inferior a:hover {
   color: #3282b8;
 }

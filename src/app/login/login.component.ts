@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent implements OnInit {
   nombre: string;
   password: string;
+  mensaje: string;
 
   constructor() {}
 
