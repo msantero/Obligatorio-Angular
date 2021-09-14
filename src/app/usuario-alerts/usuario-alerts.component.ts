@@ -9,6 +9,7 @@ import { Usuario } from '../usuarios';
 })
 export class UsuarioAlertsComponent implements OnInit {
   @Input() usuario!: Usuario;
+  @Output() notify = new EventEmitter();
   constructor() {}
 
   ngOnInit() {}
