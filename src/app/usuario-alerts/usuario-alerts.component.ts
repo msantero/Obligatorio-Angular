@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Input } from '@angular/core';
+import { Usuario } from '../usuarios';
 
 @Component({
   selector: 'app-usuario-alerts',
@@ -6,10 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usuario-alerts.component.css']
 })
 export class UsuarioAlertsComponent implements OnInit {
+  @Input() usuario!: Usuario;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

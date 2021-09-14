@@ -54,6 +54,9 @@
             ¿No tenés Cuenta? Registrate
           </a>
         </div>
+        <app-usuario-alerts [usuario]={{mensaje}} (notify)="onNotify()">
+        </app-usuario-alerts>
+
         <div class="inferior"><label> {{mensaje}}</label>
         </div>
       </div>

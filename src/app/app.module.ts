@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { UsuarioAlertsComponent } from './usuario-alerts/usuario-alerts.component';
+
 @NgModule({
   imports: [
     BrowserModule,
