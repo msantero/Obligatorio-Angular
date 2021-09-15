@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioAlertsComponent } from '../usuario-alerts/usuario-alerts.component';
 import { Usuario } from '../usuarios';
-import { FormsModule } from '@angular/forms';
-import { Router} from '@angular/router';
+import { FormBuilder, FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,20 @@ export class LoginComponent implements OnInit {
   //let usuario = new Usuario();
   usuario: Usuario | undefined;
 
-  constructor(private _router: Router) {}
+  //loginGroup;
+  //errMsg: any;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {}
+  /*
+  this.loginGroup = this.formBuilder.group({
+    usuario: '',
+    password: ''
+  });
+*/
 
   ngOnInit() {}
 
@@ -37,6 +51,24 @@ export class LoginComponent implements OnInit {
       password: this.password,
       token: ''
     };
+  }
+
+  formSubmit() {
+    //const {usuario, passord} = this.loginGroup.value
+    //console.log(usuario);
+    //console.log(password);
+    /*
+    this.userService.login(usuario, password).subscribe(user => {
+      this.userService.setUser(user);
+      console.log(user);
+    });
+    ({ error: { mensaje}}}) => {
+       this.errMsg = mensaje;
+    }
+
+    
+    */
+    this.router.navigate(['/dashboard']);
   }
 
   onNotify() {

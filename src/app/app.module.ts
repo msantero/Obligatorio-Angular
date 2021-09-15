@@ -11,16 +11,20 @@ import { RegistroComponent } from './registro/registro.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { UsuarioAlertsComponent } from './usuario-alerts/usuario-alerts.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
+      { path: 'login', component: LoginComponent },
       { path: 'registro', component: RegistroComponent },
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard/:id', component: DashboardComponent }
       //  { path: '', component: ProductListComponent },
       //  { path: 'product/:productId', component: ProductDetailComponent },
     ])
