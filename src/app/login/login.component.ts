@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
+  /*
   login() {
     this.mensaje = '';
     console.log(this.usuario);
@@ -55,8 +56,9 @@ export class LoginComponent implements OnInit {
 
     this.router.navigate(['/dashboard']);
   }
+*/
 
-  formSubmit() {
+  login() {
     this.mensaje = '';
     const { usuario, password } = this.loginGroup.value;
     this.userService.login(usuario, password).subscribe(
