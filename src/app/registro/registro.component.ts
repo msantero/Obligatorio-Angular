@@ -8,7 +8,7 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.css']
+  styleUrls: ['./registro.component.css'],
 })
 export class RegistroComponent implements OnInit {
   usuario: string;
@@ -29,47 +29,22 @@ export class RegistroComponent implements OnInit {
     this.registroGroup = this.formBuilder.group({
       usuario: '',
       password: '',
-      passwordreplay: ''
+      passwordreplay: '',
     });
   }
 
   ngOnInit() {}
 
-  /*
-  registro() {
-    this.msg = '';
-    console.log(this.usuario);
-    console.log(this.password);
-
-    if (!this.password || !this.usuario) {
-      this.msg = 'Debe ingresar el nombre y password';
-      window.alert(this.msg);
-    }
-
-    this.usu = {
-      id: 1,
-      usuario: this.usuario,
-      password: this.password,
-      apiKey: ''
-    };
-
-    this.router.navigate(['/dashboard']);
-  }
-*/
-  registro() {}
-  /*
   registro() {
     this.msg = 'Registrando...';
+    const { usuario, password, passwordreplay } = this.registroGroup.value;
 
-    if (!this.password || !this.usuario) {
+    if (!usuario || !password) {
       this.msg = 'Debe ingresar el nombre y password';
-    }else if{this.password === this.passwordreplay){
-        this.msg = 'El password debe ser el mismo que el de la confirmación';
-   } else{
-      this.msg = "Logueando..."
-      const { usuario, password } = this.registroGroup.value;
+    } else if (!password === passwordreplay) {
+    } else {
       this.userService.registro(usuario, password).subscribe(
-        user => {
+        (user) => {
           this.userService.setUser(user);
           console.log(user);
           this.router.navigate(['/dashboard']);
@@ -80,11 +55,11 @@ export class RegistroComponent implements OnInit {
         }
       );
     }
-   
-    console.log(this.msg + "usu y pass ingresado:" + this.usuario + this.password);
+
+    console.log(this.msg + 'usu y pass ingresado:' + usuario + password);
     console.log(this.userService.user?.apiKey);
   }
- */
+
   onNotify() {
     window.alert('We notify you');
   }

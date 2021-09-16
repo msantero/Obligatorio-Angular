@@ -59,8 +59,6 @@ export class LoginComponent implements OnInit {
     if (!usuario || !password) {
       this.msg = 'Debe ingresar el nombre y password';
     } else {
-      this.msg = 'Logueando...';
-
       this.userService.login(usuario, password).subscribe(
         (user) => {
           this.userService.setUser(user);
