@@ -8,11 +8,9 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  usuario: string;
-  password: string;
   msg: string;
 
   loginGroup: FormGroup;
@@ -27,7 +25,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.loginGroup = this.formBuilder.group({
       usuario: '',
-      password: ''
+      password: '',
     });
   }
 
@@ -60,12 +58,11 @@ export class LoginComponent implements OnInit {
     const { usuario, password } = this.loginGroup.value;
     if (!usuario || !password) {
       this.msg = 'Debe ingresar el nombre y password';
-    }
-    else{
-      this.msg = "Logueando..."
-      
+    } else {
+      this.msg = 'Logueando...';
+
       this.userService.login(usuario, password).subscribe(
-        user => {
+        (user) => {
           this.userService.setUser(user);
           console.log(user);
           this.router.navigate(['/dashboard']);
@@ -76,8 +73,8 @@ export class LoginComponent implements OnInit {
         }
       );
     }
-    
-    console.log(this.msg + "usu y pass ingresado:" + this.usuario + this.password);
+
+    console.log(this.msg + 'usu y pass ingresado:' + usuario + password);
     console.log(this.userService.user?.apiKey);
   }
 
