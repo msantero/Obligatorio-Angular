@@ -57,13 +57,13 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.msg = 'Ingresando...';
-
-    if (!this.password || !this.usuario) {
+    const { usuario, password } = this.loginGroup.value;
+    if (!usuario || !password) {
       this.msg = 'Debe ingresar el nombre y password';
     }
     else{
       this.msg = "Logueando..."
-      const { usuario, password } = this.loginGroup.value;
+      
       this.userService.login(usuario, password).subscribe(
         user => {
           this.userService.setUser(user);
