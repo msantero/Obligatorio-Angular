@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioAlertsComponent } from '../usuario-alerts/usuario-alerts.component';
 import { Usuario } from '../usuarios';
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 
@@ -11,12 +11,14 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  nombre: string;
+  usuario: string;
   password: string;
   mensaje: string;
 
+  loginGroup: FormGroup;
+
   //let usuario = new Usuario();
-  usuario: Usuario | undefined;
+  usu: Usuario | undefined;
 
   //loginGroup;
   //errMsg: any;
@@ -25,50 +27,48 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router
-  ) {}
-  /*
-  this.loginGroup = this.formBuilder.group({
-    usuario: '',
-    password: ''
-  });
-*/
+  ) {
+    this.loginGroup = this.formBuilder.group({
+      usuario: '',
+      password: ''
+    });
+  }
 
   ngOnInit() {}
 
   login() {
     this.mensaje = '';
-    console.log(this.nombre);
+    console.log(this.usuario);
     console.log(this.password);
 
-    if (!this.password || !this.nombre) {
+    if (!this.password || !this.usuario) {
       this.mensaje = 'Debe ingresar el nombre y password';
       window.alert(this.mensaje);
     }
 
-    this.usuario = {
+    this.usu = {
       id: 1,
-      nombre: this.nombre,
+      usuario: this.usuario,
       password: this.password,
-      token: ''
+      apiKey: ''
     };
+
+    this.router.navigate(['/dashboard']);
   }
 
   formSubmit() {
-    //const {usuario, passord} = this.loginGroup.value
-    //console.log(usuario);
-    //console.log(password);
-    /*
-    this.userService.login(usuario, password).subscribe(user => {
-      this.userService.setUser(user);
-      console.log(user);
-    });
-    ({ error: { mensaje}}}) => {
-       this.errMsg = mensaje;
-    }
-
-    
-    */
-    this.router.navigate(['/dashboard']);
+    this.mensaje = '';
+    const { usuario, password } = this.loginGroup.value;
+    this.userService.login(usuario, password).subscribe(
+      user => {
+        this.userService.setUser(user);
+        console.log(user);
+        this.router.navigate(['/dashboard']);
+      },
+      ({ error: { msg } }) => {
+        this.mensaje = msg;
+      }
+    );
   }
 
   onNotify() {
