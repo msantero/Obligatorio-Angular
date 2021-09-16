@@ -20,9 +20,6 @@ export class LoginComponent implements OnInit {
   //let usuario = new Usuario();
   usu: Usuario | undefined;
 
-  //loginGroup;
-  //errMsg: any;
-
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -59,7 +56,7 @@ export class LoginComponent implements OnInit {
 */
 
   login() {
-    this.mensaje = '';
+    this.mensaje = 'Ingresando...';
 
     if (!this.password || !this.usuario) {
       this.mensaje = 'Debe ingresar el nombre y password';
@@ -77,7 +74,7 @@ export class LoginComponent implements OnInit {
         console.log('Mensaje de error:' + mensaje);
       }
     );
-    console.log(this.userService.user.apiKey);
+    console.log(this.userService.user?.apiKey);
   }
 
   onNotify() {
