@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
 export class LoginComponent implements OnInit {
   usuario: string;
   password: string;
-  mensaje: string;
+  msg: string;
 
   loginGroup: FormGroup;
 
@@ -35,13 +35,13 @@ export class LoginComponent implements OnInit {
 
   /*
   login() {
-    this.mensaje = '';
+    this.msg = '';
     console.log(this.usuario);
     console.log(this.password);
 
     if (!this.password || !this.usuario) {
-      this.mensaje = 'Debe ingresar el nombre y password';
-      window.alert(this.mensaje);
+      this.msg = 'Debe ingresar el nombre y password';
+      window.alert(this.msg);
     }
 
     this.usu = {
@@ -56,24 +56,28 @@ export class LoginComponent implements OnInit {
 */
 
   login() {
-    this.mensaje = 'Ingresando...';
+    this.msg = 'Ingresando...';
 
     if (!this.password || !this.usuario) {
-      this.mensaje = 'Debe ingresar el nombre y password';
+      this.msg = 'Debe ingresar el nombre y password';
     }
-
-    const { usuario, password } = this.loginGroup.value;
-    this.userService.login(usuario, password).subscribe(
-      user => {
-        this.userService.setUser(user);
-        console.log(user);
-        this.router.navigate(['/dashboard']);
-      },
-      ({ error: { mensaje } }) => {
-        this.mensaje = mensaje;
-        console.log('Mensaje de error:' + mensaje);
-      }
-    );
+    else{
+      this.msg = "Logueando..."
+      const { usuario, password } = this.loginGroup.value;
+      this.userService.login(usuario, password).subscribe(
+        user => {
+          this.userService.setUser(user);
+          console.log(user);
+          this.router.navigate(['/dashboard']);
+        },
+        ({ error: { mensaje } }) => {
+          this.msg = mensaje;
+          console.log('Mensaje de error:' + this.msg);
+        }
+      );
+    }
+    
+    console.log(this.msg + "usu y pass ingresado:" + this.usuario + this.password);
     console.log(this.userService.user?.apiKey);
   }
 

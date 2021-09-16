@@ -6,7 +6,7 @@
         <div class="titulo">
           Login vendedor
         </div>
-        <form [formGroup]="loginGroup" (ngSubmit)="login()">"
+        <form [formGroup]="loginGroup" (ngSubmit)="login()">
           <input type="text" name="nombre" id="nombre" placeholder="nombre" required  formControlName="usuario">
           <!--  formControlName="usuario" -->
 
@@ -28,7 +28,7 @@
           </app-usuario-alerts>
         </p>
         -->
-        <div class="inferior" *ngIf="mensaje"><label> {{mensaje}}</label>
+        <div class="inferior" *ngIf="msg"><label> {{msg}}</label>
         </div>
 
         <!--  <h4 *ngIf="errMsg">{{errMsg}}</h4>-->
