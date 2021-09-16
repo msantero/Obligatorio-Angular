@@ -41,7 +41,8 @@ export class RegistroComponent implements OnInit {
 
     if (!usuario || !password) {
       this.msg = 'Debe ingresar el nombre y password';
-    } else if (!password === passwordreplay) {
+    } else if (password !== passwordreplay) {
+      this.msg = 'La confirmación del password debe ser la misma que el pass.';
     } else {
       this.userService.registro(usuario, password).subscribe(
         (user) => {
@@ -56,7 +57,16 @@ export class RegistroComponent implements OnInit {
       );
     }
 
-    console.log(this.msg + 'usu y pass ingresado:' + usuario + password);
+    console.log(
+      this.msg +
+        'usu: ' +
+        usuario +
+        ' pass: ' +
+        password +
+        ' passreply: ' +
+        passwordreplay
+    );
+
     console.log(this.userService.user?.apiKey);
   }
 

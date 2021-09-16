@@ -1,25 +1,34 @@
 <body>
-
   <div id="contenedor">
     <div id="central">
       <div id="login">
-        <div class="titulo">
-          Login vendedor
-        </div>
+        <div class="titulo">Login vendedor</div>
         <form [formGroup]="loginGroup" (ngSubmit)="login()">
-          <input type="text" name="usuario" id="usuario" placeholder="usuario" required  formControlName="usuario">
+          <input
+            type="text"
+            name="usuario"
+            id="usuario"
+            placeholder="Usuario"
+            required
+            formControlName="usuario"
+          />
           <!--  formControlName="usuario" -->
 
-          <input type="password" placeholder="password" id="password" name="password" required  formControlName="password">
+          <input
+            type="assword"
+            placeholder="Password"
+            id="password"
+            name="password"
+            required
+            formControlName="password"
+          />
 
           <button type="submit" title="Ingresar" name="Ingresar">Login</button>
           <!--  [routerLink]="['dashboard']"-->
         </form>
 
         <div class="pie-form">
-          <a [routerLink]="['registro']">
-            ¿No tenés Cuenta? Registrate
-          </a>
+          <a [routerLink]="['registro']"> ¿No tenés Cuenta? Registrate </a>
         </div>
 
         <!--
@@ -28,12 +37,12 @@
           </app-usuario-alerts>
         </p>
         -->
-        <div class="inferior" *ngIf="msg"><label> {{msg}}</label>
+        <div class="inferior" *ngIf="msg">
+          <label> {{ msg }}</label>
         </div>
 
         <!--  <h4 *ngIf="errMsg">{{errMsg}}</h4>-->
       </div>
     </div>
   </div>
-
 </body>
