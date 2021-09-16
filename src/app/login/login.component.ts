@@ -60,6 +60,11 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.mensaje = '';
+
+    if (!this.password || !this.usuario) {
+      this.mensaje = 'Debe ingresar el nombre y password';
+    }
+
     const { usuario, password } = this.loginGroup.value;
     this.userService.login(usuario, password).subscribe(
       user => {
@@ -67,10 +72,12 @@ export class LoginComponent implements OnInit {
         console.log(user);
         this.router.navigate(['/dashboard']);
       },
-      ({ error: { msg } }) => {
-        this.mensaje = msg;
+      ({ error: { mensaje } }) => {
+        this.mensaje = mensaje;
+        console.log('Mensaje de error:' + mensaje);
       }
     );
+    console.log(this.userService.user.apiKey);
   }
 
   onNotify() {
