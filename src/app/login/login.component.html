@@ -7,7 +7,7 @@
           Login vendedor
         </div>
         <form [formGroup]="loginGroup" (ngSubmit)="login()">
-          <input type="text" name="nombre" id="nombre" placeholder="nombre" required  formControlName="usuario">
+          <input type="text" name="usuario" id="usuario" placeholder="usuario" required  formControlName="usuario">
           <!--  formControlName="usuario" -->
 
           <input type="password" placeholder="password" id="password" name="password" required  formControlName="password">
