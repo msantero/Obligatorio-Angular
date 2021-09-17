@@ -63,7 +63,9 @@ export class LoginComponent implements OnInit {
         (user) => {
           this.userService.setUser(user);
           console.log(user);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard'], {
+            queryParams: { apiKey: this.userService.getApiKey },
+          });
         },
         ({ error: { mensaje } }) => {
           this.msg = mensaje;
