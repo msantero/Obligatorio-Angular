@@ -12,10 +12,17 @@ export class DashboardComponent implements OnInit {
   msg: string;
 
   venderGroup: FormGroup;
-  constructor() {
+  constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router
+  ) {
+    this.venderGroup = this.formBuilder.group({
+      cliente: '',
+      adultos: 0,
+      ninos: 0,
+      //paquete
+    });
   }
 
   ngOnInit() {}
@@ -42,7 +49,9 @@ export class DashboardComponent implements OnInit {
       );
     }
 */
-    console.log(this.msg + 'cli: ' + cliente + ' adultos: ' + adultos + ' ninos: ' + ninos);
+    console.log(
+      this.msg + 'cli: ' + cliente + ' adultos: ' + adultos + ' ninos: ' + ninos
+    );
     console.log(this.userService.user?.apiKey);
   }
 }
