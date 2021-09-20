@@ -12,6 +12,7 @@ import { PaqueteService } from '../paquetes.service';
 })
 export class DashboardComponent implements OnInit {
   msg: string;
+  seleccionado: string;
   nombre_vendedor = this.userService.user.usuario;
 
   paquetes: Paquete[];

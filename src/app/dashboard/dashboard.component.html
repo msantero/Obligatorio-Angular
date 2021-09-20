@@ -29,7 +29,7 @@
               type="number"
               id="adultos"
               name="adultos"
-              value="1"
+              placeholder="1"
               min="1"
               max="10"
               formControlName="adultos"
@@ -43,6 +43,26 @@
               max="10"
               formControlName="ninos"
             />
+
+            <!--
+            <input
+              type="text"
+              id="paquete_sel"
+              name="paquete_sel"
+              formControlName="paquete_sel"
+              value="{{ paquete?.id }}"
+              type="hidden"
+              readonly
+            /><br /><br />
+            -->
+
+            <!--
+            <ul>
+              <li *ngFor="let item of seleccionados" formControlName="paquete_sel">
+                {{item.nombre}}
+              </li>
+            </ul>
+            -->
             <p>
               <label>Paquetes</label>
               <select
@@ -54,25 +74,8 @@
                   {{ item.nombre }}
                 </option>
               </select>
+              <label>Seleccionado: {{ paquete?.nombre }}</label>
             </p>
-            <label>Seleccionado: {{ paquete?.nombre }}</label>
-            <input
-              type="text"
-              id="paquete_sel"
-              name="paquete_sel"
-              formControlName="paquete_sel"
-              value="{{ paquete?.id }}"
-              type="hidden"
-              readonly
-            /><br /><br />
-
-            <!--
-            <ul>
-              <li *ngFor="let item of seleccionados" formControlName="paquete_sel">
-                {{item.nombre}}
-              </li>
-            </ul>
-            -->
 
             <div class="inferior" *ngIf="msg">
               <label> {{ msg }}</label>
@@ -89,10 +92,18 @@
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card">
         <div class="card-header">Gráfica de:</div>
-        <div class="card-body"></div>
+        <div class="card-body">
+          <p>
+            <select name="miselect" [(ngModel)]="seleccionado">
+              <option [value]="item" *ngFor="let item of paquetes">
+                {{ item.nombre }}
+              </option>
+            </select>
+          </p>
+          {{ seleccionado }}
+        </div>
       </div>
     </div>
-    <!--Grid column-->
 
     <!--Grid column-->
     <div class="col-lg-4 col-md-6 mb-4">
@@ -101,7 +112,6 @@
         <div class="card-body"></div>
       </div>
     </div>
-    <!--Grid column-->
   </div>
   <!--Grid row-->
 </div>
