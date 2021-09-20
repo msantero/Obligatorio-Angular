@@ -3,52 +3,36 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Usuario } from './usuarios';
 import { Paquete } from './paquetes';
 
+import { UserService } from './user.service';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class UserService {
-  
-  paquete: Paquete | undefined;
+export class PaqueteService {
+  paquetes: Paquete[];
   private router: Router;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {}
 
-  login(usuario: string, password: string) {
-    const headers = { 'Content-type': 'application/json' };
-    const body = JSON.stringify({ usuario, password });
-    return this.http.post('https://destinos.develotion.com/login.php', body, {
-      headers
+  getpaquetes(usuario: string, password: string) {
+    const headers = {
+      'Content-type': 'application/json',
+      apiKey: this.userService.user?.apiKey,
+    };
+    console.log(this.userService.user?.apiKey);
+    //const body = JSON.stringify({ usuario, password });
+    return this.http.get('https://destinos.develotion.com/login.php', {
+      headers,
+      responseType: 'json',
     });
   }
 
-  registro(usuario: string, password: string) {
-    const headers = { 'Content-type': 'application/json' };
-    const body = JSON.stringify({ usuario, password });
-    return this.http.post('https://destinos.develotion.com/usuarios.php', body, {
-      headers
-    });
+  setPaquetes(paquetes: any) {
+    this.paquetes = paquetes;
   }
 
-  setUser(user: any) {
-    this.user = user;
-  }
-
-  getUser() {
-    return this.user;
-  }
-
-  getUserId() {
-    return this?.user.id;
-  }
-
-  getApiKey() {
-    return this.user?.apiKey;
-  }
-
-  logOut() {
-    this.user = undefined;
-    this.router.navigate(['/login']);
+  getPaquetes() {
+    return this.paquetes;
   }
 }

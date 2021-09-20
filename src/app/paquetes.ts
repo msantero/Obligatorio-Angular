@@ -5,3 +5,5 @@ export interface Paquete {
   precio_mayor: number;
   precio_menor: number;
 }
+
+//export const paquetes = [];

@@ -31,28 +31,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  /*
-  login() {
-    this.msg = '';
-    console.log(this.usuario);
-    console.log(this.password);
-
-    if (!this.password || !this.usuario) {
-      this.msg = 'Debe ingresar el nombre y password';
-      window.alert(this.msg);
-    }
-
-    this.usu = {
-      id: 1,
-      usuario: this.usuario,
-      password: this.password,
-      apiKey: ''
-    };
-
-    this.router.navigate(['/dashboard']);
-  }
-*/
-
   login() {
     this.msg = 'Ingresando...';
     const { usuario, password } = this.loginGroup.value;

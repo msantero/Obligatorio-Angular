@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Usuario } from './usuarios';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   user: Usuario | undefined;
@@ -17,16 +17,20 @@ export class UserService {
     const headers = { 'Content-type': 'application/json' };
     const body = JSON.stringify({ usuario, password });
     return this.http.post('https://destinos.develotion.com/login.php', body, {
-      headers
+      headers,
     });
   }
 
   registro(usuario: string, password: string) {
     const headers = { 'Content-type': 'application/json' };
     const body = JSON.stringify({ usuario, password });
-    return this.http.post('https://destinos.develotion.com/usuarios.php', body, {
-      headers
-    });
+    return this.http.post(
+      'https://destinos.develotion.com/usuarios.php',
+      body,
+      {
+        headers,
+      }
+    );
   }
 
   setUser(user: any) {
