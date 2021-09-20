@@ -22,7 +22,7 @@ export class PaqueteService {
     };
     console.log(apiKey);
     //const body = JSON.stringify({ usuario, password });
-    return this.http.get('https://destinos.develotion.com/login.php', {
+    return this.http.get('https://destinos.develotion.com/paquetes.php', {
       headers,
       responseType: 'json',
     });
