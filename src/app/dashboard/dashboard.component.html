@@ -41,22 +41,24 @@
               max="10"
               formControlName="ninos"
             />
-
-            <h5 class="card-title">Lista de paquetes</h5>
-            <ul class="list-group list-group-flush">
-              <li formControlName="paquete">
-                <span class="badge">{{ paquete.id }}</span> {{ paquete.nombre }}
-              </li>
-            </ul>
-
             <p>
-              <select name="paquetes" [(ngModel)]="seleccionado">
+              <select name="paquetes" [(ngModel)]="paquete">
                 <option [value]="item" *ngFor="let item of paquetes">
                   {{ item.nombre }}
                 </option>
               </select>
             </p>
-            {{ seleccionado }}
+            <label>Seleccionado: {{ paquete?.nombre }}</label>
+            <input
+              type="text"
+              id="paquete_sel"
+              name="paquete_sel"
+              formControlName="paquete_sel"
+              value="{{ paquete?.id }}"
+              type="hidden"
+              readonly
+            /><br /><br />
+
             <!--
             <ul>
               <li *ngFor="let item of seleccionados" formControlName="paquete_sel">

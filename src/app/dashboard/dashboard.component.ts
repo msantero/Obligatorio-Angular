@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
     this.paqueteService.getpaquetes(this.userService.user?.apiKey).subscribe(
       (paquetes) => {
         this.paqueteService.setPaquetes(paquetes);
+        paquetes = this.paqueteService.paquetes;
         console.log(paquetes);
       },
       ({ error: { mensaje } }) => {
