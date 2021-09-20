@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Paquete } from './paquetes';
-
 import { UserService } from './user.service';
+
+import { Paquete } from './paquetes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaqueteService {
-  paquetes: Paquete[];
+  paquetes: any;
   private router: Router;
   constructor(private http: HttpClient, private userService: UserService) {}
 
