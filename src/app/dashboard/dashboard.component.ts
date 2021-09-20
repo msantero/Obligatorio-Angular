@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {}
 
   obtener_paquetes() {
+    console.log('Obtengo paquetes...');
     this.paqueteService.getpaquetes(this.userService.user?.apiKey).subscribe(
       (paquetes) => {
         this.paqueteService.setPaquetes(paquetes);

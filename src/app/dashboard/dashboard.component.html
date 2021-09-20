@@ -14,6 +14,7 @@
       <div class="card">
         <div class="card-body">
           <form [formGroup]="venderGroup" (ngSubmit)="vender()">
+            <label>Cliente:</label>
             <input
               type="text"
               name="cliente"
@@ -28,6 +29,7 @@
               type="number"
               id="adultos"
               name="adultos"
+              value="1"
               min="1"
               max="10"
               formControlName="adultos"
@@ -42,7 +44,12 @@
               formControlName="ninos"
             />
             <p>
-              <select name="paquetes" [(ngModel)]="paquete">
+              <label>Paquetes</label>
+              <select
+                name="paquetes"
+                [(ngModel)]="paquete"
+                [ngModelOptions]="{ standalone: true }"
+              >
                 <option [value]="item" *ngFor="let item of paquetes">
                   {{ item.nombre }}
                 </option>
