@@ -15,12 +15,12 @@ export class PaqueteService {
   private router: Router;
   constructor(private http: HttpClient, private userService: UserService) {}
 
-  getpaquetes(usuario: string, password: string) {
+  getpaquetes(apiKey: string) {
     const headers = {
       'Content-type': 'application/json',
-      apiKey: this.userService.user?.apiKey,
+      apiKey: apiKey,
     };
-    console.log(this.userService.user?.apiKey);
+    console.log(apiKey);
     //const body = JSON.stringify({ usuario, password });
     return this.http.get('https://destinos.develotion.com/login.php', {
       headers,
@@ -30,9 +30,5 @@ export class PaqueteService {
 
   setPaquetes(paquetes: any) {
     this.paquetes = paquetes;
-  }
-
-  getPaquetes() {
-    return this.paquetes;
   }
 }

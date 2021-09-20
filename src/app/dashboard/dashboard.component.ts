@@ -12,6 +12,8 @@ import { PaqueteService } from '../paquetes.service';
 })
 export class DashboardComponent implements OnInit {
   msg: string;
+  nombre_vendedor = this.userService.user.usuario;
+
   paquetes: Paquete[];
   paquete: Paquete | undefined;
 
@@ -26,15 +28,28 @@ export class DashboardComponent implements OnInit {
       cliente: '',
       adultos: 0,
       ninos: 0,
-      //paquetes
+      paquete_sel: 1,
     });
   }
 
   ngOnInit() {}
 
+  obtener_paquetes() {
+    this.paqueteService.getpaquetes(this.userService.user?.apiKey).subscribe(
+      (paquetes) => {
+        this.paqueteService.setPaquetes(paquetes);
+        console.log(paquetes);
+      },
+      ({ error: { mensaje } }) => {
+        this.msg = mensaje;
+        console.log('Mensaje de error:' + this.msg);
+      }
+    );
+  }
+
   vender() {
     this.msg = 'Vendiendo...';
-    const { cliente, adultos, ninos } = this.venderGroup.value;
+    const { cliente, adultos, ninos, paquete_sel } = this.venderGroup.value;
     /*
     if (!usuario || !password) {
       this.msg = 'Debe ingresar el nombre y password';
@@ -53,26 +68,10 @@ export class DashboardComponent implements OnInit {
         }
       );
     }
-*/
+    */
     console.log(
       this.msg + 'cli: ' + cliente + ' adultos: ' + adultos + ' ninos: ' + ninos
     );
     console.log(this.userService.user?.apiKey);
-  }
-
-  obtener_paquetes() {
-    const { cliente, adultos, ninos } = this.venderGroup.value;
-  
-      this.paquete.login(usuario, password).subscribe(
-        (user) => {
-          this.userService.setUser(user);
-          console.log(user);
-        },
-        ({ error: { mensaje } }) => {
-          this.msg = mensaje;
-          console.log('Mensaje de error:' + this.msg);
-        }
-      );
-    }
   }
 }

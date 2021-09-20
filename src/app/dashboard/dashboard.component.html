@@ -5,46 +5,7 @@
 
   <hr />
 
-  <p class="font-weight-bold">Vendedor:</p>
-
-  <div class="titulo">Login vendedor</div>
-  <form [formGroup]="venderGroup" (ngSubmit)="vender()">
-    <input
-      type="text"
-      name="cliente"
-      id="cliente"
-      required
-      formControlName="cliente"
-    />
-    <!-- dos input de cantidad de adultos y niños -->
-
-    <label>Cant. adultos</label>
-    <input
-      type="number"
-      id="adultos"
-      name="adultos"
-      min="1"
-      max="10"
-      formControlName="adultos"
-    />
-    <label>Cant. niños</label>
-    <input
-      type="number"
-      id="ninos"
-      name="ninos"
-      min="1"
-      max="10"
-      formControlName="ninos"
-    />
-
-    <button type="submit" title="Vender Paquete" name="Vender">
-      Vender paquete
-    </button>
-  </form>
-
-  <div class="inferior" *ngIf="msg">
-    <label> {{ msg }}</label>
-  </div>
+  <p class="font-weight-bold">Vendedor: {{ nombre_vendedor }}</p>
 
   <!--Grid row-->
   <div class="row">
@@ -52,14 +13,66 @@
     <div class="col-lg-4 col-md-12 mb-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Lista de paquetes</h5>
-          <ul class="list-group list-group-flush">
-            <li>
-              <!--<span class="badge">{{hero.id}}</span> {{hero.name}}-->
-            </li>
-          </ul>
+          <form [formGroup]="venderGroup" (ngSubmit)="vender()">
+            <input
+              type="text"
+              name="cliente"
+              id="cliente"
+              required
+              formControlName="cliente"
+            />
+            <!-- dos input de cantidad de adultos y niños -->
+
+            <label>Cant. adultos</label>
+            <input
+              type="number"
+              id="adultos"
+              name="adultos"
+              min="1"
+              max="10"
+              formControlName="adultos"
+            />
+            <label>Cant. niños</label>
+            <input
+              type="number"
+              id="ninos"
+              name="ninos"
+              min="1"
+              max="10"
+              formControlName="ninos"
+            />
+
+            <h5 class="card-title">Lista de paquetes</h5>
+            <ul class="list-group list-group-flush">
+              <li formControlName="paquete">
+                <span class="badge">{{ paquete.id }}</span> {{ paquete.nombre }}
+              </li>
+            </ul>
+
+            <p>
+            <select name="paquetes"  [(ngModel)]="seleccionado">
+              <option [value]="item" *ngFor="let item of paquetes">
+                {{item.nombre}}
+              </option>
+            </select>
+            </p>
+            <ul>
+              <li *ngFor="let item of seleccionados" formControlName="paquete_sel">
+                {{item.nombre}}
+              </li>
+            </ul>
+
+            {{seleccionado}}
+
+            <div class="inferior" *ngIf="msg">
+              <label> {{ msg }}</label>
+            </div>
+          </form>
         </div>
       </div>
+      <button type="submit" title="Vender Paquete" name="Vender">
+        Vender paquete
+      </button>
     </div>
 
     <!--Grid column-->
