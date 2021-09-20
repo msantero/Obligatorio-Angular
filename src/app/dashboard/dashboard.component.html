@@ -94,13 +94,13 @@
         <div class="card-header">Gráfica de:</div>
         <div class="card-body">
           <p>
-            <select name="miselect" [(ngModel)]="seleccionado">
+            <select name="miselect" [(ngModel)]="paquete">
               <option [value]="item" *ngFor="let item of paquetes">
                 {{ item.nombre }}
               </option>
             </select>
           </p>
-          {{ seleccionado }}
+          {{ paquete?.nombre }}
         </div>
       </div>
     </div>
