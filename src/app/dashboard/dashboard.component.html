@@ -1,0 +1,84 @@
+<div class="container my-4">
+  <p class="font-weight-bold"></p>
+
+  <p><strong>Dashboard </strong></p>
+
+  <hr />
+
+  <p class="font-weight-bold">Vendedor:</p>
+
+  <div class="titulo">Login vendedor</div>
+  <form [formGroup]="venderGroup" (ngSubmit)="vender()">
+    <input
+      type="text"
+      name="cliente"
+      id="cliente"
+      required
+      formControlName="cliente"
+    />
+    <!-- dos input de cantidad de adultos y niños -->
+
+    <label>Cant. adultos</label>
+    <input
+      type="number"
+      id="adultos"
+      name="adultos"
+      min="1"
+      max="10"
+      formControlName="adultos"
+    />
+    <label>Cant. niños</label>
+    <input
+      type="number"
+      id="ninos"
+      name="ninos"
+      min="1"
+      max="10"
+      formControlName="ninos"
+    />
+
+    <button type="submit" title="Vender Paquete" name="Vender">
+      Vender paquete
+    </button>
+  </form>
+
+  <div class="inferior" *ngIf="msg">
+    <label> {{ msg }}</label>
+  </div>
+
+  <!--Grid row-->
+  <div class="row">
+    <!--Grid column-->
+    <div class="col-lg-4 col-md-12 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Lista de paquetes</h5>
+          <ul class="list-group list-group-flush">
+            <li>
+              <!--<span class="badge">{{hero.id}}</span> {{hero.name}}-->
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!--Grid column-->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header">Gráfica de:</div>
+        <div class="card-body"></div>
+      </div>
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header">Gráfica de:</div>
+        <div class="card-body"></div>
+      </div>
+    </div>
+    <!--Grid column-->
+  </div>
+  <!--Grid row-->
+</div>
