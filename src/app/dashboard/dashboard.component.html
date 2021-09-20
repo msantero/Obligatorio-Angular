@@ -50,19 +50,20 @@
             </ul>
 
             <p>
-            <select name="paquetes"  [(ngModel)]="seleccionado">
-              <option [value]="item" *ngFor="let item of paquetes">
-                {{item.nombre}}
-              </option>
-            </select>
+              <select name="paquetes" [(ngModel)]="seleccionado">
+                <option [value]="item" *ngFor="let item of paquetes">
+                  {{ item.nombre }}
+                </option>
+              </select>
             </p>
+            {{ seleccionado }}
+            <!--
             <ul>
               <li *ngFor="let item of seleccionados" formControlName="paquete_sel">
                 {{item.nombre}}
               </li>
             </ul>
-
-            {{seleccionado}}
+            -->
 
             <div class="inferior" *ngIf="msg">
               <label> {{ msg }}</label>
