@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
       (paquetes) => {
         this.paqueteService.setPaquetes(paquetes);
         paquetes = this.paqueteService.paquetes.destinos;
-        console.log(paquetes[1].nombre);
+        console.log(paquetes);
       },
       ({ error: { mensaje } }) => {
         this.msg = mensaje;
