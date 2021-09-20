@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
       ninos: 0,
       paquete_sel: 1,
     });
+    this.obtener_paquetes();
   }
 
   ngOnInit() {}
