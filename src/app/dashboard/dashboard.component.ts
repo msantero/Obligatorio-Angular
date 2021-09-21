@@ -15,8 +15,8 @@ export class DashboardComponent implements OnInit {
   //seleccionado: string;
   nombre_vendedor = this.userService.user.usuario;
 
-  paquetes: any; // Paquete[];
-  paquete: any; //Paquete | undefined;
+  paquetes: Paquete[];
+  paquete: Paquete | undefined;
 
   venderGroup: FormGroup;
   constructor(
@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
       (paquets) => {
         this.paqueteService.setPaquetes(paquets);
         this.paquetes = this.paqueteService.paquetes;
-        console.log('Paquetes: ' + this.paqueteService.paquetes[1].nombre);
+        console.log('Paquetes: ' + this.paquetes[1].nombre);
       },
       ({ error: { mensaje } }) => {
         this.msg = mensaje;
