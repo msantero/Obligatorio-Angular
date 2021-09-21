@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Usuario } from './usuarios';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,18 +14,22 @@ export class UserService {
   private router: Router;
   constructor(private http: HttpClient) {}
 
-  login(usuario: string, password: string) {
+  login(usuario: string, password: string): Observable<Usuario> {
     const headers = { 'Content-type': 'application/json' };
     const body = JSON.stringify({ usuario, password });
-    return this.http.post('https://destinos.develotion.com/login.php', body, {
-      headers,
-    });
+    return this.http.post<Usuario>(
+      'https://destinos.develotion.com/login.php',
+      body,
+      {
+        headers,
+      }
+    );
   }
 
-  registro(usuario: string, password: string) {
+  registro(usuario: string, password: string): Observable<Usuario> {
     const headers = { 'Content-type': 'application/json' };
     const body = JSON.stringify({ usuario, password });
-    return this.http.post(
+    return this.http.post<Usuario>(
       'https://destinos.develotion.com/usuarios.php',
       body,
       {
@@ -34,7 +39,7 @@ export class UserService {
   }
 
   setUser(user: any) {
-    this.user = user;
+    this.user = <Usuario>user;
   }
 
   getUser() {

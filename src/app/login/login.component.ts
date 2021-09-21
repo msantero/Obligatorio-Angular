@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
     } else {
       this.userService.login(usuario, password).subscribe(
         (user) => {
-          this.userService.setUser(user);
-          console.log("User: " + user);
+          this.userService.setUser(<Usuario>user);
+          console.log('User: ' + this.userService.getUserNombre);
           console.log('Token: ' + this.userService.getApiKey);
           this.router.navigate(['/dashboard'], {
             queryParams: { apiKey: this.userService.getApiKey },
