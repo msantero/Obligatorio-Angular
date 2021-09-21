@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  user: Usuario;
+  user: Usuario | undefined;
   private router: Router;
   constructor(private http: HttpClient) {}
 
@@ -47,7 +47,7 @@ export class UserService {
   }
 
   getUserId() {
-    return this?.user.id;
+    return this.user?.id;
   }
 
   getApiKey() {
