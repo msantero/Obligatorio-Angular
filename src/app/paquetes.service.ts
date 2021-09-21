@@ -33,7 +33,7 @@ export class PaqueteService {
   }
 
   setPaquetes(paque: any) {
-    this.paquetes = paque.destinos; //JSON.parse(JSON.stringify(paque.destinos));
+    this.paquetes = <Paquete[]>paque.destinos; //JSON.parse(JSON.stringify(paque.destinos));
     /*
     for (let element of paque.destinos) {
       this.paquetes.push(new Paquete(element.id, element.nombre));

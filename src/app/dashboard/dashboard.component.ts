@@ -39,8 +39,8 @@ export class DashboardComponent implements OnInit {
   obtener_paquetes() {
     console.log('Obtengo paquetes...');
     this.paqueteService.getpaquetes(this.userService.getApiKey()).subscribe(
-      (paquets) => {
-        this.paqueteService.setPaquetes(paquets);
+      (paquetes) => {
+        this.paqueteService.setPaquetes(<Paquete[]>paquetes);
         this.paquetes = this.paqueteService.paquetes;
         console.log('Paquetes: ' + this.paquetes[1].nombre);
       },
