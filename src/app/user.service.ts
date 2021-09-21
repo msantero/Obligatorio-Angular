@@ -49,6 +49,10 @@ export class UserService {
     return this.user?.apiKey;
   }
 
+  getUserNombre() {
+    return this.user?.usuario;
+  }
+
   logOut() {
     this.user = undefined;
     this.router.navigate(['/login']);

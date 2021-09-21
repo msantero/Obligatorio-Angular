@@ -13,7 +13,7 @@ import { PaqueteService } from '../paquetes.service';
 export class DashboardComponent implements OnInit {
   msg: string;
   //seleccionado: string;
-  nombre_vendedor = this.userService.user.usuario;
+  nombre_vendedor = this.userService.getUserNombre();
 
   paquetes: Paquete[];
   paquete: Paquete | undefined;
