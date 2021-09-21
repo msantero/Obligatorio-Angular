@@ -41,9 +41,11 @@ export class LoginComponent implements OnInit {
         (user) => {
           this.userService.setUser(<Usuario>user);
           this.userService.user.usuario = usuario;
+          /*
           console.log('User: ' + this.userService.getUserNombre());
           console.log('Id: ' + this.userService.getUserId());
           console.log('Token: ' + this.userService.getApiKey());
+          */
           this.router.navigate(['/dashboard'], {
             queryParams: { apiKey: this.userService.getApiKey() },
           });
