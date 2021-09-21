@@ -9,7 +9,7 @@ import { Usuario } from './usuarios';
   providedIn: 'root',
 })
 export class UserService {
-  user: Usuario | undefined;
+  user: Usuario;
   private router: Router;
   constructor(private http: HttpClient) {}
 
