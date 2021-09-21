@@ -32,5 +32,6 @@ export class PaqueteService {
     // this.paquetes = (Array<Paquete>) JSON.stringify(paquetes.destinos);
     this.paquetes = Array<Paquete>(paque.destinos);
     console.log('Paquetes set: ' + paque.destinos[1].nombre);
+    //console.log('Paquetes set: ' + this.paquetes[1].nombre);
   }
 }
