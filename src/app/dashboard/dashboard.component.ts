@@ -41,14 +41,15 @@ export class DashboardComponent implements OnInit {
     this.paqueteService.getpaquetes(this.userService.getApiKey()).subscribe(
       (paquetes) => {
         this.paqueteService.setPaquetes(paquetes);
-        paquetes = this.paqueteService.paquetes;
-        console.log(paquetes);
+        this.paquetes = this.paqueteService.paquetes;
       },
       ({ error: { mensaje } }) => {
         this.msg = mensaje;
         console.log('Mensaje de error:' + this.msg);
       }
     );
+    console.log('Paquetes: ' + this.paqueteService.paquetes);
+    console.log('Paquetes: ' + this.paquetes);
   }
 
   vender() {
