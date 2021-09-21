@@ -12,7 +12,7 @@ import { PaqueteService } from '../paquetes.service';
 })
 export class DashboardComponent implements OnInit {
   msg: string;
-  seleccionado: string;
+  //seleccionado: string;
   nombre_vendedor = this.userService.user.usuario;
 
   paquetes: Paquete[];
@@ -77,5 +77,13 @@ export class DashboardComponent implements OnInit {
       this.msg + 'cli: ' + cliente + ' adultos: ' + adultos + ' ninos: ' + ninos
     );
     console.log(this.userService.user?.apiKey);
+  }
+
+  parseData(data) {
+    if (!data) return {};
+    if (typeof data === 'object') return data;
+    if (typeof data === 'string') return JSON.parse(data);
+
+    return {};
   }
 }
