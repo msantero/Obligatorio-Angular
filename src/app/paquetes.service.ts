@@ -11,7 +11,7 @@ import { Paquete } from './paquetes';
   providedIn: 'root',
 })
 export class PaqueteService {
-  paquetes: any;
+  paquetes: Array<Paquete>;
   private router: Router;
   constructor(private http: HttpClient, private userService: UserService) {}
 
@@ -29,6 +29,6 @@ export class PaqueteService {
   }
 
   setPaquetes(paquetes: any) {
-    this.paquetes = paquetes;
+    this.paquetes = paquetes.destinos;
   }
 }
