@@ -28,9 +28,9 @@ export class PaqueteService {
     });
   }
 
-  setPaquetes(paquetes: any) {
+  setPaquetes(paque: any) {
     // this.paquetes = (Array<Paquete>) JSON.stringify(paquetes.destinos);
-    this.paquetes = Array<Paquete>(paquetes.destinos);
-    console.log('Paquetes set: ' + this.paquetes[1].nombre);
+    this.paquetes = Array<Paquete>(paque.destinos);
+    console.log('Paquetes set: ' + paque.destinos);
   }
 }
