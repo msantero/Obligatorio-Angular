@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { UserService } from './user.service';
+import { Observable } from 'rxjs';
 
 import { Paquete } from './paquetes';
 
@@ -15,17 +16,20 @@ export class PaqueteService {
   private router: Router;
   constructor(private http: HttpClient, private userService: UserService) {}
 
-  getpaquetes(apiKey: string) {
+  getpaquetes(apiKey: string): Observable<Paquete[]> {
     const headers = {
       'Content-type': 'application/json',
       apiKey: apiKey,
     };
     console.log(apiKey);
     //const body = JSON.stringify({ usuario, password });
-    return this.http.get('https://destinos.develotion.com/paquetes.php', {
-      headers,
-      responseType: 'json',
-    });
+    return this.http.get<Paquete[]>(
+      'https://destinos.develotion.com/paquetes.php',
+      {
+        headers,
+        responseType: 'json',
+      }
+    );
   }
 
   setPaquetes(paque: any) {
