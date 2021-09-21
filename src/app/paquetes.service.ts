@@ -11,7 +11,7 @@ import { Paquete } from './paquetes';
   providedIn: 'root',
 })
 export class PaqueteService {
-  paquetes: Array<Paquete>;
+  paquetes: any; //Array<Paquete>;
   private router: Router;
   constructor(private http: HttpClient, private userService: UserService) {}
 
@@ -30,8 +30,8 @@ export class PaqueteService {
 
   setPaquetes(paque: any) {
     // this.paquetes = (Array<Paquete>) JSON.stringify(paquetes.destinos);
-    this.paquetes = Array<Paquete>(paque.destinos);
+    this.paquetes = paque.destinos; //Array<Paquete>(paque.destinos);
     console.log('Paquetes set: ' + paque.destinos[1].nombre);
-    //console.log('Paquetes set: ' + this.paquetes[1].nombre);
+    console.log('Paquetes set: ' + this.paquetes[1].nombre);
   }
 }

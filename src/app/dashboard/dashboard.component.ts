@@ -15,8 +15,8 @@ export class DashboardComponent implements OnInit {
   //seleccionado: string;
   nombre_vendedor = this.userService.user.usuario;
 
-  paquetes: Paquete[];
-  paquete: Paquete | undefined;
+  paquetes: any; // Paquete[];
+  paquete: any; //Paquete | undefined;
 
   venderGroup: FormGroup;
   constructor(
@@ -39,17 +39,17 @@ export class DashboardComponent implements OnInit {
   obtener_paquetes() {
     console.log('Obtengo paquetes...');
     this.paqueteService.getpaquetes(this.userService.getApiKey()).subscribe(
-      (paquetes) => {
-        this.paqueteService.setPaquetes(paquetes);
+      (paquets) => {
+        this.paqueteService.setPaquetes(paquets);
         this.paquetes = this.paqueteService.paquetes;
+        console.log('Paquetes: ' + this.paqueteService.paquetes[1].nombre);
+        console.log('Paquetes: ' + this.paquetes.paquetes[1].nombre);
       },
       ({ error: { mensaje } }) => {
         this.msg = mensaje;
         console.log('Mensaje de error:' + this.msg);
       }
     );
-    console.log('Paquetes: ' + this.paqueteService.paquetes);
-    console.log('Paquetes: ' + this.paquetes);
   }
 
   vender() {
