@@ -55,6 +55,7 @@ export class DashboardComponent implements OnInit {
 
   vender() {
     this.msg = 'Vendiendo...';
+    console.log(this.userService.user?.apiKey);
     //const { cliente, adultos, ninos  } = this.venderGroup.value;
     const paqueteAvender = {
       ...this.venderGroup.value,
@@ -87,15 +88,14 @@ export class DashboardComponent implements OnInit {
     console.log(
       this.msg +
         'cli: ' +
-        paqueteAvender.cliente +
+        paqueteAvender?.cliente +
         ' adultos: ' +
-        paqueteAvender.adultos +
+        paqueteAvender?.adultos +
         ' ninos: ' +
-        paqueteAvender.ninos +
+        paqueteAvender?.ninos +
         'id:¨' +
-        paqueteAvender.paqueteId
+        paqueteAvender?.paqueteId
     );
-    console.log(this.userService.user?.apiKey);
   }
 
   parseData(data) {
