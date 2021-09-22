@@ -60,26 +60,28 @@ export class DashboardComponent implements OnInit {
       ...this.venderGroup.value,
       paqueteId: this.paquete.id,
     };
-    /*
-    aca va la validación y despues la llamada por POST.
-    */
 
     const valido_cantidad = () => {
       return +paqueteAvender.adultos + +paqueteAvender.ninos <= 10
         ? true
         : false; //parseInt(adultos) es +variable
     };
-    //(isMember ? "$2.00" : "$10.00")
 
-    if (valido_cantidad && paqueteAvender?.cliente != '') {
+    if (valido_cantidad() == true) {
       console.log(
-        'cantidad' +
+        'validado...cantidad:  ' +
           (+paqueteAvender.adultos + +paqueteAvender.ninos) +
           ' ' +
           paqueteAvender.adultos +
           ' ' +
           paqueteAvender.ninos
       );
+    } else if (paqueteAvender?.cliente != '') {
+      this.msg = 'Debe ingresar cliente';
+    } else if (this.paquete) {
+      this.msg = 'Debe seleccionar un paquete';
+    } else {
+      this.msg = 'Debe ingresar como máximo 10 personas.';
     }
 
     console.log(
