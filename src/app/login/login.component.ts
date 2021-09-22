@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           console.log('Token: ' + this.userService.getApiKey());
           */
           this.router.navigate(['/dashboard'], {
-            queryParams: { apiKey: this.userService.getApiKey() },
+            queryParams: { apiKey: this.userService.getUserId() },
           });
         },
         ({ error: { mensaje } }) => {

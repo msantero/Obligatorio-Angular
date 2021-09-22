@@ -46,9 +46,16 @@ export class RegistroComponent implements OnInit {
     } else {
       this.userService.registro(usuario, password).subscribe(
         (user) => {
-          this.userService.setUser(user);
-          console.log(user);
-          this.router.navigate(['/dashboard']);
+          this.userService.setUser(<Usuario>user);
+          this.userService.user.usuario = usuario;
+          /*
+          console.log('User: ' + this.userService.getUserNombre());
+          console.log('Id: ' + this.userService.getUserId());
+          console.log('Token: ' + this.userService.getApiKey());
+          */
+          this.router.navigate(['/dashboard'], {
+            queryParams: { apiKey: this.userService.getUserId() },
+          });
         },
         ({ error: { mensaje } }) => {
           this.msg = mensaje;
