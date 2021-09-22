@@ -70,22 +70,22 @@
                 [(ngModel)]="paquete"
                 [ngModelOptions]="{ standalone: true }"
               >
-                <option [value]="item" *ngFor="let item of paquetes">
+                <option [ngValue]="item" *ngFor="let item of paquetes">
                   {{ item.nombre }}
                 </option>
               </select>
               <label>Seleccionado: {{ paquete?.nombre }}</label>
             </p>
-
+            <button type="submit" title="Vender Paquete" name="Vender">
+            Vender paquete
+          </button>
             <div class="inferior" *ngIf="msg">
               <label> {{ msg }}</label>
             </div>
           </form>
         </div>
       </div>
-      <button type="submit" title="Vender Paquete" name="Vender">
-        Vender paquete
-      </button>
+      
     </div>
 
     <!--Grid column-->

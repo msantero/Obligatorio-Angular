@@ -33,14 +33,14 @@ export class PaqueteService {
   }
 
   setPaquetes(paque: any) {
-    this.paquetes = <Paquete[]>paque.destinos; //JSON.parse(JSON.stringify(paque.destinos));
+    this.paquetes = <Paquete[]>paque.destinos;
+
+    //JSON.parse(JSON.stringify(paque.destinos));
+    // this.paquetes = (Array<Paquete>) JSON.stringify(paquetes.destinos);
+
     /*
     for (let element of paque.destinos) {
       this.paquetes.push(new Paquete(element.id, element.nombre));
     }*/
-
-    // this.paquetes = (Array<Paquete>) JSON.stringify(paquetes.destinos);
-    console.log('Paquetes set: ' + this.paquetes);
-    console.log('Paquetes set: ' + this.paquetes[1].nombre);
   }
 }

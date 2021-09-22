@@ -41,8 +41,10 @@ export class DashboardComponent implements OnInit {
     this.paqueteService.getpaquetes(this.userService.getApiKey()).subscribe(
       (paquetes) => {
         this.paqueteService.setPaquetes(<Paquete[]>paquetes);
+        this.paquete = paquetes[0];
         this.paquetes = this.paqueteService.paquetes;
-        console.log('Paquetes: ' + this.paquetes[1].nombre);
+        console.log('Nombre primer paquete: ' + this.paquetes[1].nombre);
+        console.log('Paquetes: ' + this.paquetes);
       },
       ({ error: { mensaje } }) => {
         this.msg = mensaje;
@@ -53,7 +55,8 @@ export class DashboardComponent implements OnInit {
 
   vender() {
     this.msg = 'Vendiendo...';
-    const { cliente, adultos, ninos, paquete_sel } = this.venderGroup.value;
+    //const { cliente, adultos, ninos  } = this.venderGroup.value;
+    const paqueteAvender = {...this.venderGroup.value, paqueteId: this.paquete.id}
     /*
     if (!usuario || !password) {
       this.msg = 'Debe ingresar el nombre y password';
@@ -74,7 +77,7 @@ export class DashboardComponent implements OnInit {
     }
     */
     console.log(
-      this.msg + 'cli: ' + cliente + ' adultos: ' + adultos + ' ninos: ' + ninos
+      this.msg + 'cli: ' + paqueteAvender.cliente + ' adultos: ' + paqueteAvender.adultos + ' ninos: ' + paqueteAvender.ninos + 'id:¨'+paqueteAvender.paqueteId
     );
     console.log(this.userService.user?.apiKey);
   }
