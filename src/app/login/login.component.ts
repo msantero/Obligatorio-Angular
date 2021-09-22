@@ -15,9 +15,6 @@ export class LoginComponent implements OnInit {
 
   loginGroup: FormGroup;
 
-  //let usuario = new Usuario();
-  usu: Usuario | undefined;
-
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,

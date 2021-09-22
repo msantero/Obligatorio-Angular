@@ -4,10 +4,12 @@ import { Router } from '@angular/router';
 
 import { Paquete } from '../paquetes';
 import { Usuario } from '../usuarios';
+import { Venta } from './ventas';
 
 import { UserService } from '../user.service';
 import { PaqueteService } from '../paquetes.service';
 import { VentaService } from '../ventas.service';
+import { Venta } from '../ventas';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +18,8 @@ import { VentaService } from '../ventas.service';
 })
 export class DashboardComponent implements OnInit {
   msg: string;
-  //seleccionado: string;
+
+  venta: Venta | undefined;
   nombre_vendedor = this.userService.getUserNombre();
   cant: Number;
   /*
@@ -33,6 +36,7 @@ export class DashboardComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private paqueteService: PaqueteService,
+    private ventaService: VentaService,
     private router: Router
   ) {
     this.venderGroup = this.formBuilder.group({
@@ -89,6 +93,34 @@ export class DashboardComponent implements OnInit {
       this.msg = 'Debe seleccionar un paquete';
     } else {
       this.msg = 'Vendiendo...';
+
+      //cargo objeto
+      let venta = new Venta();
+      venta.vendedor_id = this.userService.getUserId;
+      venta.nombre_cliente = this.nombre_vendedor;
+      venta.idpaquete = paqueteAvender?.cliente;
+      venta.cantidad_mayores = paqueteAvender?.cantidad_mayores;
+      venta.cantidad_menores = paqueteAvender?.cantidad_menores;
+      
+
+      this.ventaService.vender(venta: Venta).subscribe(
+        (venta) => {
+          this.userService.setUser(<Usuario>user);
+          this.userService.user.usuario = usuario;
+          /*
+          console.log('User: ' + this.userService.getUserNombre());
+          console.log('Id: ' + this.userService.getUserId());
+          console.log('Token: ' + this.userService.getApiKey());
+          */
+          this.router.navigate(['/dashboard'], {
+            queryParams: { UserId: this.userService.getUserId() },
+          });
+        },
+        ({ error: { mensaje } }) => {
+          this.msg = mensaje;
+          console.log('Mensaje de error:' + this.msg);
+        }
+      );
     }
 
     console.log(
