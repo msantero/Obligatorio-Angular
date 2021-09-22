@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
         paqueteAvender?.adultos +
         ' ninos: ' +
         paqueteAvender?.ninos +
-        'id:' +
+        ' idpaquete:' +
         paqueteAvender?.paqueteId
     );
   }
