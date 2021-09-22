@@ -70,9 +70,16 @@ export class DashboardComponent implements OnInit {
         : false; //parseInt(adultos) es +variable
     };
     //(isMember ? "$2.00" : "$10.00")
-    
+
     if (valido_cantidad) {
-      console.log('llegue...' + paqueteAvender.adultos + paqueteAvender.ninos);
+      console.log(
+        'cantidad' +
+          (+paqueteAvender.adultos + +paqueteAvender.ninos) +
+          ' ' +
+          paqueteAvender.adultos +
+          ' ' +
+          paqueteAvender.ninos
+      );
     }
 
     console.log(
