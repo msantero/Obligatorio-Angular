@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   msg: string;
   //seleccionado: string;
   nombre_vendedor = this.userService.getUserNombre();
+  cant: Number;
 
   paquetes: Paquete[];
   paquete: Paquete | undefined;
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit {
   }
 
   vender() {
-    this.msg = 'Vendiendo...';
+    //this.msg = 'Vendiendo...';
     console.log(this.userService.user?.apiKey);
     //const { cliente, adultos, ninos  } = this.venderGroup.value;
     const paqueteAvender = {
@@ -63,26 +64,19 @@ export class DashboardComponent implements OnInit {
     };
 
     const valido_cantidad = () => {
-      return +paqueteAvender.adultos + +paqueteAvender.ninos <= 10
-        ? true
-        : false; //parseInt(adultos) es +variable
+      this.cant = +paqueteAvender.adultos + +paqueteAvender.ninos;
+      return this.cant <= 10 && this.cant != 0 ? true : false; //parseInt(adultos) es +variable
     };
 
-    if (valido_cantidad() == true) {
-      console.log(
-        'validado...cantidad:  ' +
-          (+paqueteAvender.adultos + +paqueteAvender.ninos) +
-          ' ' +
-          paqueteAvender.adultos +
-          ' ' +
-          paqueteAvender.ninos
-      );
-    } else if (paqueteAvender?.cliente != '') {
+    if (valido_cantidad() == false) {
+      this.msg =
+        'Debe ingresar como máximo 10 personas. ' +
+        'Cantidad ingresada: ' +
+        this.cant;
+    } else if (paqueteAvender?.cliente == '') {
       this.msg = 'Debe ingresar cliente';
-    } else if (this.paquete) {
+    } else if (!this.paquete) {
       this.msg = 'Debe seleccionar un paquete';
-    } else {
-      this.msg = 'Debe ingresar como máximo 10 personas.';
     }
 
     console.log(
@@ -93,7 +87,7 @@ export class DashboardComponent implements OnInit {
         paqueteAvender?.adultos +
         ' ninos: ' +
         paqueteAvender?.ninos +
-        'id:¨' +
+        'id:' +
         paqueteAvender?.paqueteId
     );
   }
