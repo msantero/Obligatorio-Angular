@@ -63,6 +63,18 @@ export class DashboardComponent implements OnInit {
     /*
     aca va la validación y despues la llamada por POST.
     */
+
+    const valido_cantidad = () => {
+      return +paqueteAvender.adultos + +paqueteAvender.ninos <= 10
+        ? true
+        : false; //parseInt(adultos) es +variable
+    };
+    //(isMember ? "$2.00" : "$10.00")
+    
+    if (valido_cantidad) {
+      console.log('llegue...' + paqueteAvender.adultos + paqueteAvender.ninos);
+    }
+
     console.log(
       this.msg +
         'cli: ' +
