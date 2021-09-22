@@ -30,7 +30,6 @@ export class DashboardComponent implements OnInit {
       cliente: '',
       adultos: 0,
       ninos: 0,
-      paquete_sel: 0,
     });
     this.obtener_paquetes();
   }
@@ -49,13 +48,12 @@ export class DashboardComponent implements OnInit {
       },
       ({ error: { mensaje } }) => {
         this.msg = mensaje;
-        console.log('Mensaje de error:' + this.msg);
+        console.log('Mensaje de error al obtener paquetes: ' + this.msg);
       }
     );
   }
 
   vender() {
-    //this.msg = 'Vendiendo...';
     console.log(this.userService.user?.apiKey);
     //const { cliente, adultos, ninos  } = this.venderGroup.value;
     const paqueteAvender = {
@@ -74,9 +72,11 @@ export class DashboardComponent implements OnInit {
         'Cantidad ingresada: ' +
         this.cant;
     } else if (paqueteAvender?.cliente == '') {
-      this.msg = 'Debe ingresar cliente';
-    } else if (!this.paquete) {
+      this.msg = 'Debe ingresar cliente' + paqueteAvender?.cliente;
+    } else if (!this?.paquete) {
       this.msg = 'Debe seleccionar un paquete';
+    } else {
+      this.msg = 'Vendiendo...';
     }
 
     console.log(
