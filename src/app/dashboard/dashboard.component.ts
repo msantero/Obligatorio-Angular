@@ -71,7 +71,7 @@ export class DashboardComponent implements OnInit {
     };
     //(isMember ? "$2.00" : "$10.00")
 
-    if (valido_cantidad) {
+    if (valido_cantidad && paqueteAvender.cliente != null) {
       console.log(
         'cantidad' +
           (+paqueteAvender.adultos + +paqueteAvender.ninos) +
