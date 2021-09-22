@@ -15,9 +15,14 @@ export class DashboardComponent implements OnInit {
   //seleccionado: string;
   nombre_vendedor = this.userService.getUserNombre();
   cant: Number;
-
+  /*
   paquetes: Paquete[];
   paquete: Paquete | undefined;
+*/
+
+  //el primero es el que carga el combo select para que no quede vacío
+  paquete: Paquete = { id: 0 } as Paquete;
+  paquetes: Paquete[] = [{ id: 0, nombre: 'Choose one' } as Paquete];
 
   venderGroup: FormGroup;
   constructor(
@@ -39,12 +44,15 @@ export class DashboardComponent implements OnInit {
   obtener_paquetes() {
     console.log('Obtengo paquetes...');
     this.paqueteService.getpaquetes(this.userService.getApiKey()).subscribe(
-      (paquetes) => {
+      (paquets) => {
+        /*
         this.paqueteService.setPaquetes(<Paquete[]>paquetes);
-        //this.paquete = paquetes[0];
         this.paquetes = this.paqueteService.paquetes;
         //console.log('Nombre primer paquete: ' + this.paquetes[0].nombre);
         //console.log('Paquetes: ' + this.paquetes);
+        */
+        this.paqueteService.setPaquetes(<Paquete[]>paquets);
+        this.paquetes = this.paquetes.concat(this.paqueteService.paquetes);
       },
       ({ error: { mensaje } }) => {
         this.msg = mensaje;

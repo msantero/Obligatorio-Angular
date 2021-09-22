@@ -63,6 +63,7 @@
               </li>
             </ul>
             -->
+            <!--
             <p>
               <label>Paquetes</label>
               <select
@@ -76,6 +77,24 @@
               </select>
               <label>Seleccionado: {{ paquete?.nombre }}</label>
             </p>
+            -->
+            <p>
+              <select
+                name="paquetes"
+                [(ngModel)]="paquete.id"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option
+                  [ngValue]="item.id"
+                  *ngFor="let item of paquetes"
+                  [disabled]="item.id == 0"
+                >
+                  {{ item.nombre }}
+                </option>
+              </select>
+              <label>Seleccionado: {{ paquete?.nombre }}</label>
+            </p>
+
             <button type="submit" title="Vender Paquete" name="Vender">
               Vender paquete
             </button>

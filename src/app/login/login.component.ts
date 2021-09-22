@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
     }
 
     console.log(this.msg + 'usu: ' + usuario + ' pass: ' + password);
-    console.log(this.userService.user?.apiKey);
   }
 
   onNotify() {
