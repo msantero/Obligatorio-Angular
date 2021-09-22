@@ -54,7 +54,7 @@ export class RegistroComponent implements OnInit {
           console.log('Token: ' + this.userService.getApiKey());
           */
           this.router.navigate(['/dashboard'], {
-            queryParams: { apiKey: this.userService.getUserId() },
+            queryParams: { UserId: this.userService.getUserId() },
           });
         },
         ({ error: { mensaje } }) => {
