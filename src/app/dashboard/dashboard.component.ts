@@ -41,10 +41,10 @@ export class DashboardComponent implements OnInit {
     this.paqueteService.getpaquetes(this.userService.getApiKey()).subscribe(
       (paquetes) => {
         this.paqueteService.setPaquetes(<Paquete[]>paquetes);
-        this.paquete = paquetes[0];
+        //this.paquete = paquetes[0];
         this.paquetes = this.paqueteService.paquetes;
-        console.log('Nombre primer paquete: ' + this.paquetes[0].nombre);
-        console.log('Paquetes: ' + this.paquetes);
+        //console.log('Nombre primer paquete: ' + this.paquetes[0].nombre);
+        //console.log('Paquetes: ' + this.paquetes);
       },
       ({ error: { mensaje } }) => {
         this.msg = mensaje;
@@ -71,7 +71,7 @@ export class DashboardComponent implements OnInit {
     };
     //(isMember ? "$2.00" : "$10.00")
 
-    if (valido_cantidad && paqueteAvender.cliente != null) {
+    if (valido_cantidad && paqueteAvender?.cliente != '') {
       console.log(
         'cantidad' +
           (+paqueteAvender.adultos + +paqueteAvender.ninos) +
