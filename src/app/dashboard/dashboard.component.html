@@ -77,31 +77,21 @@
               <label>Seleccionado: {{ paquete?.nombre }}</label>
             </p>
             <button type="submit" title="Vender Paquete" name="Vender">
-            Vender paquete
-          </button>
+              Vender paquete
+            </button>
             <div class="inferior" *ngIf="msg">
               <label> {{ msg }}</label>
             </div>
           </form>
         </div>
       </div>
-      
     </div>
 
     <!--Grid column-->
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card">
         <div class="card-header">Gráfica de:</div>
-        <div class="card-body">
-          <p>
-            <select name="miselect" [(ngModel)]="paquete">
-              <option [value]="item" *ngFor="let item of paquetes">
-                {{ item.nombre }}
-              </option>
-            </select>
-          </p>
-          <label>{{ paquete?.nombre }}</label>
-        </div>
+        <div class="card-body"></div>
       </div>
     </div>
 

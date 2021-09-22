@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
       cliente: '',
       adultos: 0,
       ninos: 0,
-      paquete_sel: 1,
+      paquete_sel: 0,
     });
     this.obtener_paquetes();
   }
@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
         this.paqueteService.setPaquetes(<Paquete[]>paquetes);
         this.paquete = paquetes[0];
         this.paquetes = this.paqueteService.paquetes;
-        console.log('Nombre primer paquete: ' + this.paquetes[1].nombre);
+        console.log('Nombre primer paquete: ' + this.paquetes[0].nombre);
         console.log('Paquetes: ' + this.paquetes);
       },
       ({ error: { mensaje } }) => {
@@ -56,28 +56,23 @@ export class DashboardComponent implements OnInit {
   vender() {
     this.msg = 'Vendiendo...';
     //const { cliente, adultos, ninos  } = this.venderGroup.value;
-    const paqueteAvender = {...this.venderGroup.value, paqueteId: this.paquete.id}
+    const paqueteAvender = {
+      ...this.venderGroup.value,
+      paqueteId: this.paquete.id,
+    };
     /*
-    if (!usuario || !password) {
-      this.msg = 'Debe ingresar el nombre y password';
-    } else {
-      this.userService.login(usuario, password).subscribe(
-        (user) => {
-          this.userService.setUser(user);
-          console.log(user);
-          this.router.navigate(['/dashboard'], {
-            queryParams: { apiKey: this.userService.getApiKey },
-          });
-        },
-        ({ error: { mensaje } }) => {
-          this.msg = mensaje;
-          console.log('Mensaje de error:' + this.msg);
-        }
-      );
-    }
+    aca va la validación y despues la llamada por POST.
     */
     console.log(
-      this.msg + 'cli: ' + paqueteAvender.cliente + ' adultos: ' + paqueteAvender.adultos + ' ninos: ' + paqueteAvender.ninos + 'id:¨'+paqueteAvender.paqueteId
+      this.msg +
+        'cli: ' +
+        paqueteAvender.cliente +
+        ' adultos: ' +
+        paqueteAvender.adultos +
+        ' ninos: ' +
+        paqueteAvender.ninos +
+        'id:¨' +
+        paqueteAvender.paqueteId
     );
     console.log(this.userService.user?.apiKey);
   }
