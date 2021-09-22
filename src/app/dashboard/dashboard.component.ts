@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { Paquete } from '../paquetes';
+import { Usuario } from '../usuarios';
+
 import { UserService } from '../user.service';
 import { PaqueteService } from '../paquetes.service';
+import { VentaService } from '../ventas.service';
 
 @Component({
   selector: 'app-dashboard',
