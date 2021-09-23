@@ -12,9 +12,6 @@ export class VentaService {
   venta: Venta | undefined;
   ventas: Venta[] = []; //Array<Paquete>;
 
-  codigo: Number;
-  idventa: Number;
-
   private router: Router;
 
   constructor(private http: HttpClient) {}
@@ -25,7 +22,7 @@ export class VentaService {
       'Content-type': 'application/json',
       apiKey: apiKey,
     };
-    const body = JSON.stringify({ venta });
+    const body = JSON.stringify(venta);
     return this.http.post<Venta>(
       'https://destinos.develotion.com/ventas.php',
       body,
@@ -37,6 +34,14 @@ export class VentaService {
 
   setVenta(venta: any) {
     this.venta = <Venta>venta;
+    /*console.log(
+      'venta: ' +
+        venta +
+        ' ventaobj: ' +
+        this.venta +
+        ' idventa: ' +
+        this.venta.idVenta
+    );*/
   }
 
   getVenta() {
@@ -44,18 +49,18 @@ export class VentaService {
   }
 
   getCodigo() {
-    return this.codigo;
+    return this.venta?.codigo;
   }
 
-  setCodigo(codigo_: Number) {
-    this.codigo = codigo_;
+  setCodigo(codigo_: number) {
+    this.venta.codigo = codigo_;
   }
 
   getIdVenta() {
-    return this.idventa;
+    return this.venta?.idVenta;
   }
 
-  setIdVenta(idventa_: Number) {
-    this.idventa = idventa_;
+  setIdVenta(idventa_: number) {
+    this.venta.idVenta = idventa_;
   }
 }

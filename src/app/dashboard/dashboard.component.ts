@@ -100,8 +100,8 @@ export class DashboardComponent implements OnInit {
         idVendedor: this.userService.getUserId(),
         nombreCliente: paqueteAvender?.cliente,
         idPaquete: +paqueteAvender?.paqueteId,
-        cantidadMayores: paqueteAvender?.cantidad_mayores,
-        cantidadMenores: paqueteAvender?.cantidad_menores,
+        cantidadMayores: +paqueteAvender?.adultos,
+        cantidadMenores: +paqueteAvender?.ninos,
         mensaje: '',
         codigo: 404,
       };
