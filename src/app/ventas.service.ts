@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Venta } from './ventas';
@@ -17,7 +17,6 @@ export class VentaService {
   constructor(private http: HttpClient) {}
 
   vender(apiKey: string, venta: Venta): Observable<Venta> {
-    console.log('llegue ' + apiKey);
     const headers = {
       'Content-type': 'application/json',
       apiKey: apiKey,
@@ -28,6 +27,23 @@ export class VentaService {
       body,
       {
         headers,
+      }
+    );
+  }
+
+  getVentas(apiKey: string, idVendedor: number): Observable<Venta[]> {
+    const headers = {
+      'Content-type': 'application/json',
+      apiKey: apiKey,
+    };
+    let params = new HttpParams().set('idVendedor', idVendedor);
+    //const body = JSON.stringify({ usuario, password });
+    return this.http.get<Venta[]>(
+      'https://destinos.develotion.com/ventas.php',
+      {
+        headers,
+        responseType: 'json',
+        params: params,
       }
     );
   }

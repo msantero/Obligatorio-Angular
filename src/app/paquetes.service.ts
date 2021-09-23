@@ -20,7 +20,7 @@ export class PaqueteService {
       'Content-type': 'application/json',
       apiKey: apiKey,
     };
-    console.log(apiKey);
+
     //const body = JSON.stringify({ usuario, password });
     return this.http.get<Paquete[]>(
       'https://destinos.develotion.com/paquetes.php',

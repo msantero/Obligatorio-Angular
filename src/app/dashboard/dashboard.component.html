@@ -109,8 +109,14 @@
     <!--Grid column-->
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card">
-        <div class="card-header">Gráfica de:</div>
-        <div class="card-body"></div>
+        <div class="card-header">Lista de paquetes del vendedor:</div>
+        <div class="card-body">
+          <ul>
+            <li *ngFor="let item of Paquetes_Vendedor">
+              {{ item.nombre }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 

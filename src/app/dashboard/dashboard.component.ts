@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Paquete } from '../paquetes';
-import { Usuario } from '../usuarios';
 import { Venta } from '../ventas';
 
 import { UserService } from '../user.service';
@@ -28,6 +27,10 @@ export class DashboardComponent implements OnInit {
   //el primero es el que carga el combo select para que no quede vacío
   paquete: Paquete = { id: 0 } as Paquete;
   paquetes: Paquete[] = [{ id: 0, nombre: 'Choose one' } as Paquete];
+
+  //para listar los paquetes del vendedor
+  // Paquetes_Vendedor[] = [];
+  ventas: Venta[] = [];
 
   venderGroup: FormGroup;
   constructor(
@@ -67,6 +70,27 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  obtener_ventas(idVendedor: number) {
+    console.log('Obtengo paquetes...');
+    this.ventaService
+      .getVentas(this.userService.getApiKey(), idVendedor)
+      .subscribe(
+        (ventas) => {
+          /*
+        this.paqueteService.setPaquetes(<Paquete[]>paquetes);
+        this.paquetes = this.paqueteService.paquetes;
+        //console.log('Nombre primer paquete: ' + this.paquetes[0].nombre);
+        //console.log('Paquetes: ' + this.paquetes);
+        */
+          this.ventaService.setVentas(<Venta[]>ventas);
+          this.ventas = this.ventaService.ventas;
+        },
+        ({ error: { mensaje } }) => {
+          this.msg = mensaje;
+          console.log('Mensaje de error al obtener paquetes: ' + this.msg);
+        }
+      );
+  }
   vender() {
     console.log(this.userService.user?.apiKey);
     //const { cliente, adultos, ninos  } = this.venderGroup.value;
