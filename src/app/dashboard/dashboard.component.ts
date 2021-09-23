@@ -116,10 +116,10 @@ export class DashboardComponent implements OnInit {
         .vender(this.userService.getApiKey(), this.venta)
         .subscribe(
           (vent) => {
-            this.ventaService.idventa = json.getJSONObject('idVenta').getString;
-            this.ventaService.codigo = codigo;
-            //this.ventaService.setUser(<Usuario>user);
+            this.ventaService.setVenta(<Venta>vent);
             //this.ventaService.user.usuario = usuario
+            this.msg =
+              'Venta ingresada con id: ' + this.ventaService.getIdVenta();
           },
           ({ error: { mensaje } }) => {
             this.msg = mensaje;

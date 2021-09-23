@@ -3,9 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Venta } from './ventas';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class VentaService {
+  venta: Venta | undefined;
   ventas: Venta[] = []; //Array<Paquete>;
   codigo: Number;
   idventa: Number;
@@ -14,19 +16,27 @@ export class VentaService {
 
   constructor(private http: HttpClient) {}
 
-  vender(apiKey: string, venta: Venta) {
+  vender(apiKey: string, venta: Venta): Observable<Venta> {
     const headers = {
       'Content-type': 'application/json',
       apiKey: apiKey,
     };
     const body = JSON.stringify({ venta });
-    return this.http.post(
+    return this.http.post<Venta>(
       'https://destinos.develotion.com/usuarios.php',
       body,
       {
         headers,
       }
     );
+  }
+
+  setVenta(venta: any) {
+    this.venta = <Venta>venta;
+  }
+
+  getVenta() {
+    return this.venta;
   }
 
   getCodigo() {
