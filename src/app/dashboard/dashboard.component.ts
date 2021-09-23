@@ -97,11 +97,11 @@ export class DashboardComponent implements OnInit {
 
       this.venta = {
         idVenta: 0,
-        vendedor_id: this.userService.getUserId(),
-        nombre_cliente: this.nombre_vendedor,
-        id_paquete: +paqueteAvender?.cliente,
-        cantidad_mayores: paqueteAvender?.cantidad_mayores,
-        cantidad_menores: paqueteAvender?.cantidad_menores,
+        idVendedor: this.userService.getUserId(),
+        nombreCliente: paqueteAvender?.cliente,
+        idPaquete: +paqueteAvender?.paqueteId,
+        cantidadMayores: paqueteAvender?.cantidad_mayores,
+        cantidadMenores: paqueteAvender?.cantidad_menores,
         mensaje: '',
         codigo: 404,
       };
@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
 
     console.log(
       this.msg +
-        ' vendedor_id ' +
+        ' vendedor_id: ' +
         this.userService.getUserId() +
         ' cliente: ' +
         paqueteAvender?.cliente +
