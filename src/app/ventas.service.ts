@@ -5,10 +5,13 @@ import { Router } from '@angular/router';
 import { Venta } from './ventas';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class VentaService {
   venta: Venta | undefined;
   ventas: Venta[] = []; //Array<Paquete>;
+
   codigo: Number;
   idventa: Number;
 
@@ -17,12 +20,12 @@ export class VentaService {
   constructor(private http: HttpClient) {}
 
   vender(apiKey: string, venta: Venta): Observable<Venta> {
+    console.log('llegue ' + apiKey);
     const headers = {
       'Content-type': 'application/json',
       apiKey: apiKey,
     };
     const body = JSON.stringify({ venta });
-    console.log(body);
     return this.http.post<Venta>(
       'https://destinos.develotion.com/ventas.php',
       body,

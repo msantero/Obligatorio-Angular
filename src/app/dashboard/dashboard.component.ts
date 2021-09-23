@@ -94,6 +94,7 @@ export class DashboardComponent implements OnInit {
 
       //creo y cargo objeto para mandar al REST
       //let venta =  Venta;
+
       this.venta = {
         idVenta: 0,
         vendedor_id: this.userService.getUserId(),
@@ -104,13 +105,6 @@ export class DashboardComponent implements OnInit {
         mensaje: '',
         codigo: 404,
       };
-      /*
-      venta.vendedor_id = this.userService.getUserId;
-      venta.nombre_cliente = this.nombre_vendedor;
-      venta.idpaquete = paqueteAvender?.cliente;
-      venta.cantidad_mayores = paqueteAvender?.cantidad_mayores;
-      venta.cantidad_menores = paqueteAvender?.cantidad_menores;
-*/
 
       this.ventaService
         .vender(this.userService.getApiKey(), this.venta)
@@ -130,13 +124,15 @@ export class DashboardComponent implements OnInit {
 
     console.log(
       this.msg +
-        'cli: ' +
+        ' vendedor_id ' +
+        this.userService.getUserId() +
+        ' cliente: ' +
         paqueteAvender?.cliente +
         ' adultos: ' +
         paqueteAvender?.adultos +
         ' ninos: ' +
         paqueteAvender?.ninos +
-        ' idpaquete:' +
+        ' idpaquete: ' +
         paqueteAvender?.paqueteId
     );
   }
