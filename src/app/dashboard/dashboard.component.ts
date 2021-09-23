@@ -75,6 +75,7 @@ export class DashboardComponent implements OnInit {
       .subscribe(
         (ventas) => {
           console.log('ventas: ' + JSON.stringify(ventas));
+          console.log('ventas: ' + JSON.stringify(ventas));
           this.ventaService.setVentas(<VentaResponse[]>ventas);
           this.ventas = this.ventaService.ventas;
         },
