@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
       ninos: 0,
     });
     this.obtener_paquetes();
+    this.obtener_ventas(this.userService.getUserId());
   }
 
   ngOnInit() {}
@@ -73,6 +74,8 @@ export class DashboardComponent implements OnInit {
       .getVentas(this.userService.getApiKey(), idVendedor)
       .subscribe(
         (ventas) => {
+          console.log('ventas: ' + ventas);
+          console.log('venta 2 ' + ventas[1].vendedor_id);
           this.ventaService.setVentas(<Ventas[]>ventas);
           this.ventas = this.ventaService.ventas;
         },
@@ -136,6 +139,8 @@ export class DashboardComponent implements OnInit {
             console.log('Mensaje de error:' + this.msg);
           }
         );
+
+      this.obtener_ventas(this.userService.getUserId());
     }
 
     console.log(
