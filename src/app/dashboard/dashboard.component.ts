@@ -4,12 +4,11 @@ import { Router } from '@angular/router';
 
 import { Paquete } from '../paquetes';
 import { Usuario } from '../usuarios';
-import { Venta } from './ventas';
+import { Venta } from '../ventas';
 
 import { UserService } from '../user.service';
 import { PaqueteService } from '../paquetes.service';
 import { VentaService } from '../ventas.service';
-import { Venta } from '../ventas';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,11 +16,10 @@ import { Venta } from '../ventas';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  msg: string;
-
   venta: Venta | undefined;
   nombre_vendedor = this.userService.getUserNombre();
   cant: Number;
+  msg: string;
   /*
   paquetes: Paquete[];
   paquete: Paquete | undefined;
@@ -94,33 +92,40 @@ export class DashboardComponent implements OnInit {
     } else {
       this.msg = 'Vendiendo...';
 
-      //cargo objeto
-      let venta = new Venta();
+      //creo y cargo objeto para mandar al REST
+      //let venta =  Venta;
+      this.venta = {
+        idVenta: 0,
+        vendedor_id: this.userService.getUserId(),
+        nombre_cliente: this.nombre_vendedor,
+        id_paquete: +paqueteAvender?.cliente,
+        cantidad_mayores: paqueteAvender?.cantidad_mayores,
+        cantidad_menores: paqueteAvender?.cantidad_menores,
+        mensaje: '',
+        codigo: 404,
+      };
+      /*
       venta.vendedor_id = this.userService.getUserId;
       venta.nombre_cliente = this.nombre_vendedor;
       venta.idpaquete = paqueteAvender?.cliente;
       venta.cantidad_mayores = paqueteAvender?.cantidad_mayores;
       venta.cantidad_menores = paqueteAvender?.cantidad_menores;
-      
+*/
 
-      this.ventaService.vender(venta: Venta).subscribe(
-        (venta) => {
-          this.userService.setUser(<Usuario>user);
-          this.userService.user.usuario = usuario;
-          /*
-          console.log('User: ' + this.userService.getUserNombre());
-          console.log('Id: ' + this.userService.getUserId());
-          console.log('Token: ' + this.userService.getApiKey());
-          */
-          this.router.navigate(['/dashboard'], {
-            queryParams: { UserId: this.userService.getUserId() },
-          });
-        },
-        ({ error: { mensaje } }) => {
-          this.msg = mensaje;
-          console.log('Mensaje de error:' + this.msg);
-        }
-      );
+      this.ventaService
+        .vender(this.userService.getApiKey(), this.venta)
+        .subscribe(
+          (vent) => {
+            this.ventaService.idventa = json.getJSONObject('idVenta').getString;
+            this.ventaService.codigo = codigo;
+            //this.ventaService.setUser(<Usuario>user);
+            //this.ventaService.user.usuario = usuario
+          },
+          ({ error: { mensaje } }) => {
+            this.msg = mensaje;
+            console.log('Mensaje de error:' + this.msg);
+          }
+        );
     }
 
     console.log(

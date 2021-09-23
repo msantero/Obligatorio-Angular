@@ -7,6 +7,9 @@ import { Venta } from './ventas';
 @Injectable()
 export class VentaService {
   ventas: Venta[] = []; //Array<Paquete>;
+  codigo: Number;
+  idventa: Number;
+
   private router: Router;
 
   constructor(private http: HttpClient) {}
@@ -24,5 +27,21 @@ export class VentaService {
         headers,
       }
     );
+  }
+
+  getCodigo() {
+    return this.codigo;
+  }
+
+  setCodigo(codigo_: Number) {
+    this.codigo = codigo_;
+  }
+
+  getIdVenta() {
+    return this.idventa;
+  }
+
+  setIdVenta(idventa_: Number) {
+    this.idventa = idventa_;
   }
 }
