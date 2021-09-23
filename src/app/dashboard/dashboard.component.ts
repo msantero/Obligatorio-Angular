@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Paquete } from '../paquetes';
-import { Venta, Ventas } from '../ventas';
+import { Venta, VentaResponse } from '../ventas';
 
 import { UserService } from '../user.service';
 import { PaqueteService } from '../paquetes.service';
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   // Paquetes_Vendedor[] = [];
 
   venta: Venta | undefined;
-  ventas: Ventas[] = [];
+  ventas: VentaResponse[] = [];
 
   venderGroup: FormGroup;
   constructor(
@@ -74,9 +74,8 @@ export class DashboardComponent implements OnInit {
       .getVentas(this.userService.getApiKey(), idVendedor)
       .subscribe(
         (ventas) => {
-          console.log('ventas: ' + ventas);
-          console.log('venta 2 ' + ventas[1].vendedor_id);
-          this.ventaService.setVentas(<Ventas[]>ventas);
+          console.log('ventas: ' + JSON.stringify(ventas));
+          this.ventaService.setVentas(<VentaResponse[]>ventas);
           this.ventas = this.ventaService.ventas;
         },
         ({ error: { mensaje } }) => {
@@ -129,7 +128,7 @@ export class DashboardComponent implements OnInit {
         .vender(this.userService.getApiKey(), this.venta)
         .subscribe(
           (vent) => {
-            this.ventaService.setVenta(<Venta>vent);
+            this.ventaService.setVentas(<Venta>vent);
             //this.ventaService.user.usuario = usuario
             this.msg =
               'Venta ingresada con id: ' + this.ventaService.getIdVenta();

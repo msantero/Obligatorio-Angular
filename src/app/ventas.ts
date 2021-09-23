@@ -9,7 +9,7 @@ export interface Venta {
   codigo: number; //devuelve
 }
 
-export interface Ventas {
+export interface VentaResponse {
   id: number;
   vendedor_id: number;
   nombre_cliente: string;

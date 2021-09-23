@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Venta, Ventas } from './ventas';
+import { Venta, VentaResponse } from './ventas';
 import { Observable } from 'rxjs';
+import { Paquete } from './paquetes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VentaService {
   venta: Venta | undefined;
-  ventas: Ventas[] = []; //Array<Paquete>;
+  ventas: VentaResponse[] = []; //Array<Paquete>;
 
   private router: Router;
 
@@ -31,14 +32,14 @@ export class VentaService {
     );
   }
 
-  getVentas(apiKey: string, idVendedor: number): Observable<Ventas[]> {
+  getVentas(apiKey: string, idVendedor: number): Observable<VentaResponse[]> {
     const headers = {
       'Content-type': 'application/json',
       apiKey: apiKey,
     };
     let params = new HttpParams().set('idVendedor', idVendedor);
     //const body = JSON.stringify({ usuario, password });
-    return this.http.get<Ventas[]>(
+    return this.http.get<VentaResponse[]>(
       'https://destinos.develotion.com/ventas.php',
       {
         headers,
@@ -46,18 +47,6 @@ export class VentaService {
         params: params,
       }
     );
-  }
-
-  setVenta(venta: any) {
-    this.venta = <Venta>venta;
-    /*console.log(
-      'venta: ' +
-        venta +
-        ' ventaobj: ' +
-        this.venta +
-        ' idventa: ' +
-        this.venta.idVenta
-    );*/
   }
 
   getVenta() {
@@ -81,6 +70,6 @@ export class VentaService {
   }
 
   setVentas(ventas: any) {
-    this.ventas = <Ventas[]>ventas;
+    this.ventas = <VentaResponse[]>ventas.ventas;
   }
 }
