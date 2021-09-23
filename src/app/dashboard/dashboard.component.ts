@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Paquete } from '../paquetes';
-import { Venta } from '../ventas';
+import { Venta, Ventas } from '../ventas';
 
 import { UserService } from '../user.service';
 import { PaqueteService } from '../paquetes.service';
@@ -15,14 +15,9 @@ import { VentaService } from '../ventas.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  venta: Venta | undefined;
   nombre_vendedor = this.userService.getUserNombre();
   cant: Number;
   msg: string;
-  /*
-  paquetes: Paquete[];
-  paquete: Paquete | undefined;
-*/
 
   //el primero es el que carga el combo select para que no quede vacío
   paquete: Paquete = { id: 0 } as Paquete;
@@ -30,7 +25,9 @@ export class DashboardComponent implements OnInit {
 
   //para listar los paquetes del vendedor
   // Paquetes_Vendedor[] = [];
-  ventas: Venta[] = [];
+
+  venta: Venta | undefined;
+  ventas: Ventas[] = [];
 
   venderGroup: FormGroup;
   constructor(
@@ -76,13 +73,7 @@ export class DashboardComponent implements OnInit {
       .getVentas(this.userService.getApiKey(), idVendedor)
       .subscribe(
         (ventas) => {
-          /*
-        this.paqueteService.setPaquetes(<Paquete[]>paquetes);
-        this.paquetes = this.paqueteService.paquetes;
-        //console.log('Nombre primer paquete: ' + this.paquetes[0].nombre);
-        //console.log('Paquetes: ' + this.paquetes);
-        */
-          this.ventaService.setVentas(<Venta[]>ventas);
+          this.ventaService.setVentas(<Ventas[]>ventas);
           this.ventas = this.ventaService.ventas;
         },
         ({ error: { mensaje } }) => {
@@ -91,6 +82,7 @@ export class DashboardComponent implements OnInit {
         }
       );
   }
+
   vender() {
     console.log(this.userService.user?.apiKey);
     //const { cliente, adultos, ninos  } = this.venderGroup.value;
