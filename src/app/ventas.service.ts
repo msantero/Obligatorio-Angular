@@ -22,8 +22,9 @@ export class VentaService {
       apiKey: apiKey,
     };
     const body = JSON.stringify({ venta });
+    console.log(body);
     return this.http.post<Venta>(
-      'https://destinos.develotion.com/usuarios.php',
+      'https://destinos.develotion.com/ventas.php',
       body,
       {
         headers,
