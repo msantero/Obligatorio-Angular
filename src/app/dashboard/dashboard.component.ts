@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   nombre_vendedor = this.userService.getUserNombre();
   cant: Number;
   msg: string;
+  cantPaquetesVendedor: number;
 
   //el primero es el que carga el combo select para que no quede vacío
   paquete: Paquete = { id: 0 } as Paquete;
@@ -78,7 +79,9 @@ export class DashboardComponent implements OnInit {
         (ventas) => {
           this.ventaService.setVentas(<VentaResponse[]>ventas);
           this.ventas = this.ventaService.ventas;
+          //cargo datos del dashboard
           this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
+          this.cantidad_paquetes(this.Paquetes_Vendedor);
         },
         ({ error: { mensaje } }) => {
           this.msg = mensaje;
@@ -181,8 +184,7 @@ export class DashboardComponent implements OnInit {
           nombrePaquete: paquete.nombre,
           precioPaquete:
             paquete.precio_mayor * venta.cantidad_mayores +
-            paquete.precio_menor +
-            venta.cantidad_menores,
+            paquete.precio_menor * venta.cantidad_menores,
           nombreCliente: venta.nombre_cliente,
           cantidad_mayores: venta.cantidad_mayores,
           cantidad_menores: venta.cantidad_menores,
@@ -194,11 +196,25 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  //cantidad de paquetes vendidos por el vendedor.
+  cantidad_paquetes(ventas: VentaPaquete[]) {
+    console.log('Obtengo cantidad paquetes vendidos...');
+    var groupedVentas = this.groupArrayOfObjects(ventas, 'idPaquete');
+    console.log(groupedVentas);
+  }
+
   parseData(data) {
     if (!data) return {};
     if (typeof data === 'object') return data;
     if (typeof data === 'string') return JSON.parse(data);
 
     return {};
+  }
+
+  groupArrayOfObjects(list: VentaPaquete[], key: string) {
+    return list.reduce(function (rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
   }
 }
