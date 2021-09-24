@@ -26,37 +26,7 @@ export class DashboardComponent implements OnInit {
   venta: Venta | undefined;
   ventas: VentaResponse[] = [];
 
-  //para listar los paquetes del vendedor con ventas[] id_paquete debo ir a paquetes[] id y nombre, preciomayor, preciomenor (sacar info de: ventas: nombreCliente, cantidadMayores, cantidadMenores )
   Paquetes_Vendedor: VentaPaquete[] = [];
-
-  //paquetes.forEach((paq, pos)=> console.log(`${paq} en posición ${pos}`));
-  //vecPersonas.map(per => per.nombre + "   " + per.apellido)
-  //let descriptivo = this.ventas.map((jug)=> {});
-  //vec5.forEach(elem => console.log(elem))
-  // paquetes.filter((paq) => paq.Id >= 8);
-
-  pepe(ventas: VentaResponse[], paquetes: Paquete[]) {
-    let ventapaquete: VentaPaquete;
-
-    paquetes.forEach((paquete) => {
-      let frs = ventas.filter((ven) => paquete.id == ven.id_paquete);
-      frs.forEach((venta) => {
-        ventapaquete = {
-          idPaquete: paquete.id,
-          nombrePaquete: paquete.nombre,
-          precioPaquete:
-            paquete.precio_mayor * venta.cantidad_mayores +
-            paquete.precio_menor +
-            venta.cantidad_menores,
-          nombreCliente: venta.nombre_cliente,
-          cantidad_mayores: 1,
-          cantidad_menores: 1,
-        };
-        console.log(JSON.stringify(ventapaquete));
-        this.Paquetes_Vendedor.push(ventapaquete);
-      });
-    });
-  }
 
   venderGroup: FormGroup;
   constructor(
@@ -183,6 +153,35 @@ export class DashboardComponent implements OnInit {
         ' idpaquete: ' +
         paqueteAvender?.paqueteId
     );
+  }
+
+  //paquetes.forEach((paq, pos)=> console.log(`${paq} en posición ${pos}`));
+  //vecPersonas.map(per => per.nombre + "   " + per.apellido)
+  //let descriptivo = this.ventas.map((jug)=> {});
+  //vec5.forEach(elem => console.log(elem))
+  // paquetes.filter((paq) => paq.Id >= 8);
+
+  obtener_ventas_(ventas: VentaResponse[], paquetes: Paquete[]) {
+    let ventapaquete: VentaPaquete;
+
+    paquetes.forEach((paquete) => {
+      let frs = ventas.filter((ven) => paquete.id == ven.id_paquete);
+      frs.forEach((venta) => {
+        ventapaquete = {
+          idPaquete: paquete.id,
+          nombrePaquete: paquete.nombre,
+          precioPaquete:
+            paquete.precio_mayor * venta.cantidad_mayores +
+            paquete.precio_menor +
+            venta.cantidad_menores,
+          nombreCliente: venta.nombre_cliente,
+          cantidad_mayores: 1,
+          cantidad_menores: 1,
+        };
+        console.log(JSON.stringify(ventapaquete));
+        this.Paquetes_Vendedor.push(ventapaquete);
+      });
+    });
   }
 
   parseData(data) {
