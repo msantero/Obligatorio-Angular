@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Paquete } from '../paquetes';
-import { Venta, VentaResponse } from '../ventas';
+import { Venta, VentaPaquete, VentaResponse } from '../ventas';
 
 import { UserService } from '../user.service';
 import { PaqueteService } from '../paquetes.service';
@@ -26,9 +26,34 @@ export class DashboardComponent implements OnInit {
   venta: Venta | undefined;
   ventas: VentaResponse[] = [];
 
-  //para listar los paquetes del vendedor con ventas[] id_paquete debo ir a paquetes[] id (sacar info de: ventas: nombreCliente, cantidadMayores, cantidadMenores, nombreCliente, nombre (paquete) )
-  // Paquetes_Vendedor[] = [];
+  //para listar los paquetes del vendedor con ventas[] id_paquete debo ir a paquetes[] id y nombre, preciomayor, preciomenor (sacar info de: ventas: nombreCliente, cantidadMayores, cantidadMenores )
+  Paquetes_Vendedor: VentaPaquete[] = [];
+
   //paquetes.forEach((paq, pos)=> console.log(`${paq} en posición ${pos}`));
+  //vecPersonas.map(per => per.nombre + "   " + per.apellido)
+  //let descriptivo = this.ventas.map((jug)=> {});
+  //vec5.forEach(elem => console.log(elem))
+  // paquetes.filter((paq) => paq.Id >= 8);
+
+  pepe(ventas: VentaResponse[], paquetes: Paquete[]) {
+    let ventapaquete: VentaPaquete;
+
+    paquetes.forEach((paquete) => {
+      let frs = ventas.filter((ven) => paquete.id == ven.id_paquete);
+      frs.forEach((venta) => {
+        ventapaquete = {
+          idPaquete: paquete.id,
+          nombrePaquete: paquete.nombre,
+          precioPaquete: 2,
+          nombreCliente: '',
+          cantidad_mayores: 1,
+          cantidad_menores: 1,
+        };
+        console.log(JSON.stringify(ventapaquete));
+        this.Paquetes_Vendedor.push(ventapaquete);
+      });
+    });
+  }
 
   venderGroup: FormGroup;
   constructor(

@@ -17,3 +17,12 @@ export interface VentaResponse {
   cantidad_mayores: number;
   cantidad_menores: number;
 }
+
+export interface VentaPaquete {
+  idPaquete: number;
+  nombrePaquete: string;
+  precioPaquete: number;
+  nombreCliente: string;
+  cantidad_mayores: number;
+  cantidad_menores: number;
+}
