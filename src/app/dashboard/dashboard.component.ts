@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
     });
     this.obtener_paquetes();
     this.obtener_ventas(this.userService.getUserId());
+    this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
   }
 
   ngOnInit() {}
@@ -138,6 +139,7 @@ export class DashboardComponent implements OnInit {
         );
 
       this.obtener_ventas(this.userService.getUserId());
+      this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
     }
 
     console.log(
@@ -161,7 +163,10 @@ export class DashboardComponent implements OnInit {
   //vec5.forEach(elem => console.log(elem))
   // paquetes.filter((paq) => paq.Id >= 8);
 
-  obtener_ventas_(ventas: VentaResponse[], paquetes: Paquete[]) {
+  obtener_PaquetesyVentas_Vendedor(
+    ventas: VentaResponse[],
+    paquetes: Paquete[]
+  ) {
     let ventapaquete: VentaPaquete;
 
     paquetes.forEach((paquete) => {
