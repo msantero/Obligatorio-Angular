@@ -23,11 +23,12 @@ export class DashboardComponent implements OnInit {
   paquete: Paquete = { id: 0 } as Paquete;
   paquetes: Paquete[] = [{ id: 0, nombre: 'Choose one' } as Paquete];
 
-  //para listar los paquetes del vendedor
-  // Paquetes_Vendedor[] = [];
-
   venta: Venta | undefined;
   ventas: VentaResponse[] = [];
+
+  //para listar los paquetes del vendedor con ventas[] id_paquete debo ir a paquetes[] id (sacar info de: ventas: nombreCliente, cantidadMayores, cantidadMenores, nombreCliente, nombre (paquete) )
+  // Paquetes_Vendedor[] = [];
+  //paquetes.forEach((paq, pos)=> console.log(`${paq} en posición ${pos}`));
 
   venderGroup: FormGroup;
   constructor(
