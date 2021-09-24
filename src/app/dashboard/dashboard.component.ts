@@ -44,8 +44,11 @@ export class DashboardComponent implements OnInit {
         ventapaquete = {
           idPaquete: paquete.id,
           nombrePaquete: paquete.nombre,
-          precioPaquete: 2,
-          nombreCliente: '',
+          precioPaquete:
+            paquete.precio_mayor * venta.cantidad_mayores +
+            paquete.precio_menor +
+            venta.cantidad_menores,
+          nombreCliente: venta.nombre_cliente,
           cantidad_mayores: 1,
           cantidad_menores: 1,
         };
