@@ -199,8 +199,15 @@ export class DashboardComponent implements OnInit {
   //cantidad de paquetes vendidos por el vendedor.
   cantidad_paquetes(ventas: VentaPaquete[]) {
     console.log('Obtengo cantidad paquetes vendidos...');
-    var groupedVentas = this.groupArrayOfObjects(ventas, 'idPaquete');
-    console.log(groupedVentas);
+    let groupedVentas = this.groupArrayOfObjects(ventas, 'idPaquete');
+    //Array.from(groupedVentas.entries())
+    let idpaquetes: number[];
+    ventas.forEach((venta) => {
+      idpaquetes.forEach((paq) => {
+        venta.idPaquete != paq ? idpaquetes.push(venta.idPaquete) : '';
+      });
+    });
+    return idpaquetes.length;
   }
 
   parseData(data) {
