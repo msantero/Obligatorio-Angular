@@ -41,12 +41,13 @@ export class DashboardComponent implements OnInit {
       adultos: 0,
       ninos: 0,
     });
+  }
+
+  ngOnInit() {
     this.obtener_paquetes();
     this.obtener_ventas(this.userService.getUserId());
     this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
   }
-
-  ngOnInit() {}
 
   obtener_paquetes() {
     console.log('Obtengo paquetes...');
@@ -60,11 +61,13 @@ export class DashboardComponent implements OnInit {
         */
         this.paqueteService.setPaquetes(<Paquete[]>paquets);
         this.paquetes = this.paquetes.concat(this.paqueteService.paquetes);
-      },
+      }
+      /*
       ({ error: { mensaje } }) => {
         this.msg = mensaje;
         console.log('Mensaje de error al obtener paquetes: ' + this.msg);
       }
+      */
     );
   }
 
@@ -183,7 +186,8 @@ export class DashboardComponent implements OnInit {
           cantidad_mayores: 1,
           cantidad_menores: 1,
         };
-        console.log(JSON.stringify(ventapaquete));
+        //console.log(JSON.stringify(ventapaquete));
+        console.log('entre a listar cosas');
         this.Paquetes_Vendedor.push(ventapaquete);
       });
     });
