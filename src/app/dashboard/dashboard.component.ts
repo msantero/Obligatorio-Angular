@@ -74,8 +74,6 @@ export class DashboardComponent implements OnInit {
       .getVentas(this.userService.getApiKey(), idVendedor)
       .subscribe(
         (ventas) => {
-          console.log('ventas: ' + JSON.stringify(ventas));
-          console.log('ventas: ' + JSON.stringify(ventas));
           this.ventaService.setVentas(<VentaResponse[]>ventas);
           this.ventas = this.ventaService.ventas;
         },
@@ -129,7 +127,7 @@ export class DashboardComponent implements OnInit {
         .vender(this.userService.getApiKey(), this.venta)
         .subscribe(
           (vent) => {
-            this.ventaService.setVentas(<Venta>vent);
+            this.ventaService.setVenta(<Venta>vent);
             //this.ventaService.user.usuario = usuario
             this.msg =
               'Venta ingresada con id: ' + this.ventaService.getIdVenta();

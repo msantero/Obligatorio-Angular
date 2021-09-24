@@ -69,6 +69,10 @@ export class VentaService {
     this.venta.idVenta = idventa_;
   }
 
+  setVenta(venta: any) {
+    this.venta = <Venta>venta;
+  }
+
   setVentas(ventas: any) {
     this.ventas = <VentaResponse[]>ventas.ventas;
   }
