@@ -109,11 +109,15 @@
     <!--Grid column-->
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card">
-        <div class="card-header">Lista de paquetes del vendedor:</div>
+        <div class="card-header">Lista de paquetes Vendidos:</div>
         <div class="card-body">
           <ul>
-            <li *ngFor="let item of ventas">
-              {{ item.nombre_cliente }}
+            <li *ngFor="let item of Paquetes_Vendedor">
+              Cliente: {{ item.nombreCliente }} - Paquete:
+              {{ item.nombrePaquete }} - Cant. mayores:
+              {{ item.cantidad_mayores }} - Cant. menores
+              {{ item.cantidad_mayores }} - Precio final:
+              {{ item.precioPaquete }}
             </li>
           </ul>
         </div>
