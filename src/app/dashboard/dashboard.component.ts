@@ -25,7 +25,6 @@ export class DashboardComponent implements OnInit {
 
   venta: Venta | undefined;
   ventas: VentaResponse[] = [];
-
   Paquetes_Vendedor: VentaPaquete[] = [];
 
   venderGroup: FormGroup;
@@ -46,7 +45,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.obtener_paquetes();
     this.obtener_ventas(this.userService.getUserId());
-    this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
+    //this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
   }
 
   obtener_paquetes() {
@@ -72,13 +71,14 @@ export class DashboardComponent implements OnInit {
   }
 
   obtener_ventas(idVendedor: number) {
-    console.log('Obtengo paquetes...');
+    console.log('Obtengo todas las ventas...');
     this.ventaService
       .getVentas(this.userService.getApiKey(), idVendedor)
       .subscribe(
         (ventas) => {
           this.ventaService.setVentas(<VentaResponse[]>ventas);
           this.ventas = this.ventaService.ventas;
+          this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
         },
         ({ error: { mensaje } }) => {
           this.msg = mensaje;
@@ -97,7 +97,7 @@ export class DashboardComponent implements OnInit {
 
     const valido_cantidad = () => {
       this.cant = +paqueteAvender.adultos + +paqueteAvender.ninos;
-      return this.cant <= 10 && this.cant != 0 ? true : false; //parseInt(adultos) es +variable
+      return this.cant <= 10 && this.cant != 0 ? true : false; //tip: parseInt(adultos) es igual a  +adultos
     };
 
     if (valido_cantidad() == false) {
@@ -142,7 +142,6 @@ export class DashboardComponent implements OnInit {
         );
 
       this.obtener_ventas(this.userService.getUserId());
-      this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
     }
 
     console.log(
@@ -170,7 +169,9 @@ export class DashboardComponent implements OnInit {
     ventas: VentaResponse[],
     paquetes: Paquete[]
   ) {
+    console.log('Obtengo ventas...');
     let ventapaquete: VentaPaquete;
+    console.log(JSON.stringify(this.ventas));
 
     paquetes.forEach((paquete) => {
       let frs = ventas.filter((ven) => paquete.id == ven.id_paquete);
@@ -183,12 +184,12 @@ export class DashboardComponent implements OnInit {
             paquete.precio_menor +
             venta.cantidad_menores,
           nombreCliente: venta.nombre_cliente,
-          cantidad_mayores: 1,
-          cantidad_menores: 1,
+          cantidad_mayores: venta.cantidad_mayores,
+          cantidad_menores: venta.cantidad_menores,
         };
-        //console.log(JSON.stringify(ventapaquete));
-        console.log('entre a listar cosas');
+
         this.Paquetes_Vendedor.push(ventapaquete);
+        //console.log(JSON.stringify(this.Paquetes_Vendedor));
       });
     });
   }
