@@ -229,7 +229,7 @@ export class DashboardComponent implements OnInit {
 
       paq.id != 0 ? pdventas.push(ventapaquete) : ''; //porque el primero es choose one
     });
-    console.log('ventas  por paquete: ' + JSON.stringify(pdventas));
+    //console.log('ventas  por paquete: ' + JSON.stringify(pdventas));
   }
 
   parseData(data) {
