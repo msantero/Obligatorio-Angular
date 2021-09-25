@@ -211,16 +211,20 @@ export class DashboardComponent implements OnInit {
 
   obtener_personas_destino(paquetes: Paquete[], ventas: VentaResponse[]) {
     console.log('Obtengo paquetes con cantidad personas...');
-    let paquetes_personas: {
-      idpaquete: number;
-      nombre_paquete: string;
-      cantidad: number;
-    }[];
-    let frs = paquetes.forEach((paq) => {
-      ventas.find(element => element.id_paquete === paq.id);
-    
+    let frs = [];
+    paquetes.forEach((paq) => {
+      frs = ventas.filter((element) => element.id_paquete === paq.id);
+      valor: Number;
+      frs.map(function (x) {
+        return (
+          x.id_paquete,
+          paq.nombre,
+          (this.valor = x.cantidad_mayores + x.cantidad_menores)
+        );
+      });
     });
-    //return idpaquetes.length;
+
+    console.log(JSON.stringify(frs));
   }
 
   parseData(data) {
