@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Paquete } from '../paquetes';
+import { Paquete, PaqueteCantPersonas } from '../paquetes';
 import { Venta, VentaPaquete, VentaResponse } from '../ventas';
 
 import { UserService } from '../user.service';
@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   nombre_vendedor = this.userService.getUserNombre();
   cant: Number;
   msg: string;
-  cantPaquetesVendedor: number;
+  cantPaquetesPersonas: number;
 
   //el primero es el que carga el combo select para que no quede vacío
   paquete: Paquete = { id: 0 } as Paquete;
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   venta: Venta | undefined;
   ventas: VentaResponse[] = [];
   Paquetes_Vendedor: VentaPaquete[] = [];
-  PaqueteCantPersonas: any[];
+  PaqueteCantPersonas: PaqueteCantPersonas[] = [];
 
   venderGroup: FormGroup;
   constructor(
@@ -225,7 +225,7 @@ export class DashboardComponent implements OnInit {
       let ventapaquete = {
         id_paquete: paq.id,
         cantidad: cantidad,
-        nombrePaquete: paq.nombre,
+        nombre: paq.nombre,
       };
 
       paq.id != 0 ? this.PaqueteCantPersonas.push(ventapaquete) : ''; //porque el primero es choose one

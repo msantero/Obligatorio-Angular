@@ -12,4 +12,15 @@ export interface Paquete {
   */
 }
 
+export interface PaqueteCantPersonas {
+  id_paquete: number;
+  nombre: string;
+  cantidad: number;
+  /*
+  constructor(private id_: number, private nombre_: string) {
+     this.id = id_;
+     this.nombre = nombre_;
+  }
+  */
+}
 //export const paquetes = [];
