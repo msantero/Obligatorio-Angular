@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   venta: Venta | undefined;
   ventas: VentaResponse[] = [];
   Paquetes_Vendedor: VentaPaquete[] = [];
+  PaqueteCantPersonas: any[];
 
   venderGroup: FormGroup;
   constructor(
@@ -211,7 +212,7 @@ export class DashboardComponent implements OnInit {
 
   obtener_personas_destino(paquetes: Paquete[], ventas: VentaResponse[]) {
     console.log('Obtengo paquetes con cantidad personas...');
-    let pdventas = [];
+    //let pdventas = [];
 
     paquetes.forEach((paq) => {
       let frs = ventas.filter((element) => element.id_paquete === paq.id);
@@ -227,8 +228,9 @@ export class DashboardComponent implements OnInit {
         nombrePaquete: paq.nombre,
       };
 
-      paq.id != 0 ? pdventas.push(ventapaquete) : ''; //porque el primero es choose one
+      paq.id != 0 ? this.PaqueteCantPersonas.push(ventapaquete) : ''; //porque el primero es choose one
     });
+    //return pdventas;
     //console.log('ventas  por paquete: ' + JSON.stringify(pdventas));
   }
 
