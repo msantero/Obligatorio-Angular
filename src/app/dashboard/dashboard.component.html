@@ -137,17 +137,17 @@
       <table
         class="
           table table-striped table-dark table-bordered table-hover table-sm
-        "
+        " 
       >
-        <thead class="thead-dark">
-          <tr>
+        <thead class="thead-dark" >
+          <tr >
             <th scope="col">Destinos</th>
             <th scope="col">Cant. personas</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
+          <tr *ngFor="let destinos of cantPaquetesVendedor">
+            <td>{{destinos.}}</td>
             <td></td>
           </tr>
         </tbody>
