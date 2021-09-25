@@ -212,17 +212,22 @@ export class DashboardComponent implements OnInit {
   obtener_personas_destino(paquetes: Paquete[], ventas: VentaResponse[]) {
     console.log('Obtengo paquetes con cantidad personas...');
     let pdventas = [];
+
     paquetes.forEach((paq) => {
       let frs = ventas.filter((element) => element.id_paquete === paq.id);
+      var cantidad = 0;
 
       frs.forEach((element) => {
-        let ventapaquete = {
-          id_paquete: paq.id,
-          cantidad: (element.cantidad_mayores + element.cantidad_menores),
-          nombrePaquete: paq.nombre,
-        };
-        pdventas.push(ventapaquete);
+        cantidad += element.cantidad_mayores + element.cantidad_menores;
       });
+
+      let ventapaquete = {
+        id_paquete: paq.id,
+        cantidad: cantidad,
+        nombrePaquete: paq.nombre,
+      };
+
+      paq.id != 0 ? pdventas.push(ventapaquete) : ''; //porque el primero es choose one
     });
     console.log('ventas  por paquete: ' + JSON.stringify(pdventas));
   }
