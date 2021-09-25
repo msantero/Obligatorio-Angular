@@ -216,18 +216,15 @@ export class DashboardComponent implements OnInit {
       let frs = ventas.filter((element) => element.id_paquete === paq.id);
 
       frs.forEach((element) => {
-
         let ventapaquete = {
-          id_paquete : paq.id,
-          cantidad : element.cantidad_mayores + element.cantidad_menores,
-          nombrePaquete :  paq.nombre
+          id_paquete: paq.id,
+          cantidad: (element.cantidad_mayores + element.cantidad_menores),
+          nombrePaquete: paq.nombre,
         };
         pdventas.push(ventapaquete);
       });
     });
-    console.log(
-      'ventas  por paquete: ' +
-        JSON.stringify(pdventas));
+    console.log('ventas  por paquete: ' + JSON.stringify(pdventas));
   }
 
   parseData(data) {
