@@ -175,6 +175,7 @@ export class DashboardComponent implements OnInit {
   ) {
     console.log('Obtengo ventas...');
     let ventapaquete: VentaPaquete;
+    this.Paquetes_Vendedor = [];
 
     paquetes.forEach((paquete) => {
       let frs = ventas.filter((ven) => paquete.id == ven.id_paquete);
@@ -189,9 +190,6 @@ export class DashboardComponent implements OnInit {
           cantidad_mayores: venta.cantidad_mayores,
           cantidad_menores: venta.cantidad_menores,
         };
-        console.log(
-          'Paquete 1: ' + paquete.nombre + 'ventas: ' + JSON.stringify(frs)
-        );
         this.Paquetes_Vendedor.push(ventapaquete);
         //console.log(JSON.stringify(this.Paquetes_Vendedor));
       });
@@ -213,29 +211,23 @@ export class DashboardComponent implements OnInit {
 
   obtener_personas_destino(paquetes: Paquete[], ventas: VentaResponse[]) {
     console.log('Obtengo paquetes con cantidad personas...');
-    let frs = [];
+    let pdventas = [];
     paquetes.forEach((paq) => {
-      frs = ventas.filter((element) => {
-        //console.log(element.id_paquete + '-' + paq.id);
-        element.id_paquete === paq.id;
-      });
+      let frs = ventas.filter((element) => element.id_paquete === paq.id);
 
-      console.log(
-        'ventas filtradas por paquete: ' +
-          paq.nombre +
-          ' - ' +
-          JSON.stringify(frs)
-      );
-      //valor: Number;
+      frs.forEach((element) => {
 
-      frs.map(function (x) {
-        return (
-          x.id_paquete,
-          paq.nombre,
-          (this.valor = x.cantidad_mayores + x.cantidad_menores)
-        );
+        let ventapaquete = {
+          id_paquete : paq.id,
+          cantidad : element.cantidad_mayores + element.cantidad_menores,
+          nombrePaquete :  paq.nombre
+        };
+        pdventas.push(ventapaquete);
       });
     });
+    console.log(
+      'ventas  por paquete: ' +
+        JSON.stringify(pdventas));
   }
 
   parseData(data) {
