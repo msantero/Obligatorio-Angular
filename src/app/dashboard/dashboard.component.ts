@@ -82,6 +82,7 @@ export class DashboardComponent implements OnInit {
           //cargo datos del dashboard
           this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
           //this.cantidad_paquetes(this.Paquetes_Vendedor);
+          this.obtener_personas_destino(this.paquetes, this.ventas);
         },
         ({ error: { mensaje } }) => {
           this.msg = mensaje;
