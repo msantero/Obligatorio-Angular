@@ -81,7 +81,7 @@ export class DashboardComponent implements OnInit {
           this.ventas = this.ventaService.ventas;
           //cargo datos del dashboard
           this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
-          this.cantidad_paquetes(this.Paquetes_Vendedor);
+          //this.cantidad_paquetes(this.Paquetes_Vendedor);
         },
         ({ error: { mensaje } }) => {
           this.msg = mensaje;
@@ -196,10 +196,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  //cantidad de paquetes vendidos por el vendedor.
   cantidad_paquetes(ventas: VentaPaquete[]) {
     console.log('Obtengo cantidad paquetes vendidos...');
-    let groupedVentas = this.groupArrayOfObjects(ventas, 'idPaquete');
+    //let groupedVentas = this.groupArrayOfObjects(ventas, 'idPaquete');
     //Array.from(groupedVentas.entries())
     let idpaquetes: number[];
     ventas.forEach((venta) => {
@@ -208,6 +207,20 @@ export class DashboardComponent implements OnInit {
       });
     });
     return idpaquetes.length;
+  }
+
+  obtener_personas_destino(paquetes: Paquete[], ventas: VentaResponse[]) {
+    console.log('Obtengo paquetes con cantidad personas...');
+    let paquetes_personas: {
+      idpaquete: number;
+      nombre_paquete: string;
+      cantidad: number;
+    }[];
+    let frs = paquetes.forEach((paq) => {
+      ventas.find(element => element.id_paquete === paq.id);
+    
+    });
+    //return idpaquetes.length;
   }
 
   parseData(data) {
