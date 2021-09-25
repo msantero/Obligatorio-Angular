@@ -214,8 +214,14 @@ export class DashboardComponent implements OnInit {
     console.log('Obtengo paquetes con cantidad personas...');
     let frs = [];
     paquetes.forEach((paq) => {
-      frs = ventas.filter((element) => element.id_paquete === paq.id);
-      valor: Number;
+      frs = ventas.filter((element) => {
+        console.log(element.id_paquete + '-' + paq.id);
+        element.id_paquete === paq.id;
+      });
+
+      console.log(JSON.stringify(ventas));
+      //valor: Number;
+
       frs.map(function (x) {
         return (
           x.id_paquete,
