@@ -175,7 +175,6 @@ export class DashboardComponent implements OnInit {
   ) {
     console.log('Obtengo ventas...');
     let ventapaquete: VentaPaquete;
-    console.log(JSON.stringify(this.ventas));
 
     paquetes.forEach((paquete) => {
       let frs = ventas.filter((ven) => paquete.id == ven.id_paquete);
@@ -190,7 +189,9 @@ export class DashboardComponent implements OnInit {
           cantidad_mayores: venta.cantidad_mayores,
           cantidad_menores: venta.cantidad_menores,
         };
-
+        console.log(
+          'Paquete 1: ' + paquete.nombre + 'ventas: ' + JSON.stringify(frs)
+        );
         this.Paquetes_Vendedor.push(ventapaquete);
         //console.log(JSON.stringify(this.Paquetes_Vendedor));
       });
@@ -215,11 +216,16 @@ export class DashboardComponent implements OnInit {
     let frs = [];
     paquetes.forEach((paq) => {
       frs = ventas.filter((element) => {
-        console.log(element.id_paquete + '-' + paq.id);
+        //console.log(element.id_paquete + '-' + paq.id);
         element.id_paquete === paq.id;
       });
 
-      console.log(JSON.stringify(ventas));
+      console.log(
+        'ventas filtradas por paquete: ' +
+          paq.nombre +
+          ' - ' +
+          JSON.stringify(frs)
+      );
       //valor: Number;
 
       frs.map(function (x) {
@@ -230,8 +236,6 @@ export class DashboardComponent implements OnInit {
         );
       });
     });
-
-    console.log(JSON.stringify(frs));
   }
 
   parseData(data) {
