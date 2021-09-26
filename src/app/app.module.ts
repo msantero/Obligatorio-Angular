@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GraficasComponent } from './graficas/graficas.component';
 
 import { UsuarioAlertsComponent } from './usuario-alerts/usuario-alerts.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,18 +25,19 @@ import { HttpClientModule } from '@angular/common/http';
       { path: 'login', component: LoginComponent },
       { path: 'registro', component: RegistroComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'dashboard/:id', component: DashboardComponent }
+      { path: 'dashboard/:id', component: DashboardComponent },
       //  { path: '', component: ProductListComponent },
       //  { path: 'product/:productId', component: ProductDetailComponent },
-    ])
+    ]),
   ],
   declarations: [
     AppComponent,
     LoginComponent,
     RegistroComponent,
     DashboardComponent,
-    UsuarioAlertsComponent
+    UsuarioAlertsComponent,
+    GraficasComponent,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

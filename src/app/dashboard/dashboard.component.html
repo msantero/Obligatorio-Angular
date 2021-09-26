@@ -106,10 +106,16 @@
       </div>
     </div>
 
+    <br />
+
     <!--Grid column-->
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card">
-        <div class="card-header">Lista de paquetes Vendidos:</div>
+        <div class="card-header">
+          <tr>
+            <th scope="col">Lista de paquetes Vendidos:</th>
+          </tr>
+        </div>
         <div class="card-body">
           <ul>
             <li *ngFor="let item of Paquetes_Vendedor">
@@ -124,13 +130,21 @@
       </div>
     </div>
 
+    <br />
+
     <!--Grid column-->
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card">
-        <div class="card-header">Cantidad de paquetes vendidos:</div>
+        <div class="card-header">
+          <tr>
+            <th scope="col">Cantidad de paquetes vendidos:</th>
+          </tr>
+        </div>
         <div class="card-body">{{ this.Paquetes_Vendedor.length }}</div>
       </div>
     </div>
+
+    <br />
 
     <!--Grid column-->
     <div class="col-lg-3 col-md-10 mb-3">
@@ -154,22 +168,29 @@
       </table>
     </div>
 
+    <br />
+
     <!--Grid column-->
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card">
         <div class="card-header">
-          Gráfica de precios (promedio) por destino:
+          <tr>
+            <th scope="col">Gráfica de precios (promedio) por destino:</th>
+          </tr>
         </div>
         <tbody>
           <tr *ngFor="let paq of paquetes; let i = index">
-            <span *ngIf="i === 0"> {{ i }} + 1</span>
-            <td>{{ paq.nombre }}</td>
-            <td>{{ (paq.precio_mayor + paq.precio_menor) / 2 }}</td>
+            <p *ngIf="i > 0">
+              <td>{{ paq.nombre }}</td>
+              <td>- {{ (paq.precio_mayor + paq.precio_menor) / 2 }}</td>
+            </p>
           </tr>
         </tbody>
         <div class="card-body"></div>
       </div>
     </div>
   </div>
+
   <!--Grid row-->
+  <app-graficas [paquetes]="paquetes"> </app-graficas>
 </div>
