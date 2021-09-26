@@ -157,7 +157,16 @@
     <!--Grid column-->
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card">
-        <div class="card-header">Gráfica de:</div>
+        <div class="card-header">
+          Gráfica de precios (promedio) por destino:
+        </div>
+        <tbody>
+          <tr *ngFor="let paq of paquetes; let i = index">
+            <span *ngIf="i === 0"> {{ i }} + 1</span>
+            <td>{{ paq.nombre }}</td>
+            <td>{{ (paq.precio_mayor + paq.precio_menor) / 2 }}</td>
+          </tr>
+        </tbody>
         <div class="card-body"></div>
       </div>
     </div>
