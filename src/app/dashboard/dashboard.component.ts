@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Paquete, PaqueteCantPersonas } from '../paquetes';
-import { Venta, VentaPaquete, VentaResponse } from '../ventas';
+import { Categoria, CategoriaRequest } from '../interfaces/categorias';
+import {
+  Evento,
+  EventosxCategoria,
+  CantCategoriaEventos,
+  CantEventosxMes,
+} from '../interfaces/eventos';
 
-import { UserService } from '../user.service';
-import { PaqueteService } from '../paquetes.service';
-import { VentaService } from '../ventas.service';
+import { EventoService } from '../services/evento.service';
+import { CategoriaService } from '../services/categoria.service';
+import { AdminService } from '../services/administrador.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,237 +21,299 @@ import { VentaService } from '../ventas.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  nombre_vendedor = this.userService.getUserNombre();
-  cant: Number;
+  nombre_administrador: string;
   msg: string;
-  cantPaquetesPersonas: number;
+  evento: Evento | undefined;
+  eventos: Evento[] = [];
 
-  //el primero es el que carga el combo select para que no quede vacío
-  paquete: Paquete = { id: 0 } as Paquete;
-  paquetes: Paquete[] = [{ id: 0, nombre: 'Choose one' } as Paquete];
+  categoriaalta: CategoriaRequest | undefined;
+  categoria: Categoria = { _id: '0' } as Categoria;
+  categorias: Categoria[] = [{ _id: '0', nombre: 'Choose one' } as Categoria];
 
-  venta: Venta | undefined;
-  ventas: VentaResponse[] = [];
-  Paquetes_Vendedor: VentaPaquete[] = [];
-  PaqueteCantPersonas: PaqueteCantPersonas[] = [];
+  EventosxCategoria: EventosxCategoria[] = [];
+  CantCategoriaEventos: CantCategoriaEventos[] = [];
+  CantEventosxMes: CantEventosxMes[] = [];
 
-  venderGroup: FormGroup;
+  activodesactivo: string[] = [
+    'Seleccione estado:',
+    'Todas',
+    'Activas',
+    'Inactivas',
+  ];
+  eventosaux: Evento[] = [];
+  seleccionado: string;
+
+  ngOnInit() {
+    this.nombre_administrador = this.AdminService.getUserNombre();
+    this.obtener_categorias(true);
+    this.obtener_eventos();
+  }
+
+  AltaCategoriaGroup: FormGroup;
+  EliminarCategoriaGroup: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
-    private paqueteService: PaqueteService,
-    private ventaService: VentaService,
+    private AdminService: AdminService,
+    private CategoriaService: CategoriaService,
+    private EventoService: EventoService,
     private router: Router
   ) {
-    this.venderGroup = this.formBuilder.group({
-      cliente: '',
-      adultos: 0,
-      ninos: 0,
+    this.AltaCategoriaGroup = this.formBuilder.group({
+      nombre: '',
+      minutosExpiracion: 0,
+    });
+
+    this.EliminarCategoriaGroup = this.formBuilder.group({
+      _id: '',
     });
   }
 
-  ngOnInit() {
-    this.obtener_paquetes();
-    this.obtener_ventas(this.userService.getUserId());
-    //this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
-  }
+  obtener_categorias(primeravez: boolean) {
+    console.log('Obtengo categorias...');
+    this.CategoriaService.getcategorias().subscribe(
+      (cats) => {
+        console.log('Categorias: ' + cats.toString());
+        this.CategoriaService.setCategorias(<Categoria[]>cats);
+        console.log(
+          'se obtuvo categorias: ' + this.CategoriaService.categorias
+        );
 
-  obtener_paquetes() {
-    console.log('Obtengo paquetes...');
-    this.paqueteService.getpaquetes(this.userService.getApiKey()).subscribe(
-      (paquets) => {
-        /*
-        this.paqueteService.setPaquetes(<Paquete[]>paquetes);
-        this.paquetes = this.paqueteService.paquetes;
-        //console.log('Nombre primer paquete: ' + this.paquetes[0].nombre);
-        //console.log('Paquetes: ' + this.paquetes);
-        */
-        this.paqueteService.setPaquetes(<Paquete[]>paquets);
-        this.paquetes = this.paquetes.concat(this.paqueteService.paquetes);
-      }
-      /*
+        if (primeravez) {
+          this.categorias = this.categorias.concat(
+            this.CategoriaService.categorias
+          );
+        } else {
+          this.categorias = this.CategoriaService.categorias;
+        }
+        this.obtener_eventos();
+      },
+
       ({ error: { mensaje } }) => {
         this.msg = mensaje;
         console.log('Mensaje de error al obtener paquetes: ' + this.msg);
       }
-      */
     );
   }
 
-  obtener_ventas(idVendedor: number) {
-    console.log('Obtengo todas las ventas...');
-    this.ventaService
-      .getVentas(this.userService.getApiKey(), idVendedor)
-      .subscribe(
-        (ventas) => {
-          this.ventaService.setVentas(<VentaResponse[]>ventas);
-          this.ventas = this.ventaService.ventas;
-          //cargo datos del dashboard
-          this.obtener_PaquetesyVentas_Vendedor(this.ventas, this.paquetes);
-          //this.cantidad_paquetes(this.Paquetes_Vendedor);
-          this.obtener_personas_destino(this.paquetes, this.ventas);
-        },
-        ({ error: { mensaje } }) => {
-          this.msg = mensaje;
-          console.log('Mensaje de error al obtener paquetes: ' + this.msg);
-        }
-      );
-  }
-
-  vender() {
-    console.log(this.userService.user?.apiKey);
-    //const { cliente, adultos, ninos  } = this.venderGroup.value;
-    const paqueteAvender = {
-      ...this.venderGroup.value,
-      paqueteId: this.paquete.id,
+  altacategoria() {
+    const AltaCat = {
+      ...this.AltaCategoriaGroup.value,
+      categoriaId: this.categoria._id,
     };
 
-    const valido_cantidad = () => {
-      this.cant = +paqueteAvender.adultos + +paqueteAvender.ninos;
-      return this.cant <= 10 && this.cant != 0 ? true : false; //tip: parseInt(adultos) es igual a  +adultos
-    };
-
-    if (valido_cantidad() == false) {
-      this.msg =
-        'Debe ingresar como máximo 10 personas. ' +
-        'Cantidad ingresada: ' +
-        this.cant;
-    } else if (paqueteAvender?.cliente == '') {
-      this.msg = 'Debe ingresar cliente' + paqueteAvender?.cliente;
-    } else if (!this?.paquete) {
-      this.msg = 'Debe seleccionar un paquete';
+    if (AltaCat?.nombre == '') {
+      this.msg = 'Debe ingresar nombre' + AltaCat?.nombre;
+    } else if (AltaCat?.minutosExpiracion === 0) {
+      this.msg = 'Debe ingresar cantidad de minutos';
     } else {
-      this.msg = 'Vendiendo...';
+      this.msg = 'Procesando alta...';
 
       //creo y cargo objeto para mandar al REST
       //let venta =  Venta;
 
-      this.venta = {
-        idVenta: 0,
-        idVendedor: this.userService.getUserId(),
-        nombreCliente: paqueteAvender?.cliente,
-        idPaquete: +paqueteAvender?.paqueteId,
-        cantidadMayores: +paqueteAvender?.adultos,
-        cantidadMenores: +paqueteAvender?.ninos,
-        mensaje: '',
-        codigo: 404,
+      this.categoriaalta = {
+        //_id: '0',
+        nombre: AltaCat.nombre,
+        minutosExpiracion: AltaCat.minutosExpiracion,
       };
 
-      this.ventaService
-        .vender(this.userService.getApiKey(), this.venta)
-        .subscribe(
-          (vent) => {
-            this.ventaService.setVenta(<Venta>vent);
-            //this.ventaService.user.usuario = usuario
-            this.msg =
-              'Venta ingresada con id: ' + this.ventaService.getIdVenta();
-          },
-          ({ error: { mensaje } }) => {
-            this.msg = mensaje;
-            console.log('Mensaje de error:' + this.msg);
-          }
-        );
+      console.log(
+        'Se envia categoria para alta: minutos' +
+          this.categoriaalta.minutosExpiracion +
+          '  nombre' +
+          this.categoriaalta.nombre +
+          ' y el AltaCat es: ' +
+          AltaCat.nombre
+      );
 
-      this.obtener_ventas(this.userService.getUserId());
+      this.CategoriaService.altacategoria(this.categoriaalta).subscribe(
+        (cat) => {
+          this.CategoriaService.setCategorias(<Categoria>cat);
+          //this.ventaService.user.usuario = usuario
+          this.msg = 'Categoria -  Ingresada ';
+          //this.categorias = null;
+          this.obtener_categorias(false);
+          this.obtener_eventos();
+        },
+        (err: HttpErrorResponse) => {
+          if (err.error instanceof Error) {
+            console.log('Client-side error: ' + err.message);
+          } else {
+            console.log('Server-side error: ' + err.message);
+          }
+          this.msg = 'Error al dar de alta la categoría.';
+        }
+        /*
+        ({ error: { mensaje } }) => {
+          this.msg = mensaje;
+          console.log('Mensaje de error:' + this.msg);
+        }
+        */
+      );
+
+      //this.obtener_categorias();
+
+      AltaCat.minutosExpiracion = 0;
+      AltaCat.nombre = '';
+      this.AltaCategoriaGroup.reset();
     }
 
     console.log(
       this.msg +
-        ' vendedor_id: ' +
-        this.userService.getUserId() +
-        ' cliente: ' +
-        paqueteAvender?.cliente +
-        ' adultos: ' +
-        paqueteAvender?.adultos +
-        ' ninos: ' +
-        paqueteAvender?.ninos +
-        ' idpaquete: ' +
-        paqueteAvender?.paqueteId
+        ' id: ' +
+        this.CategoriaService.getId() +
+        ' nombre: ' +
+        AltaCat?.nombre +
+        ' minutosExpiracion: ' +
+        AltaCat?.minutosExpiracion
     );
   }
 
-  //paquetes.forEach((paq, pos)=> console.log(`${paq} en posición ${pos}`));
-  //vecPersonas.map(per => per.nombre + "   " + per.apellido)
-  //let descriptivo = this.ventas.map((jug)=> {});
-  //vec5.forEach(elem => console.log(elem))
-  // paquetes.filter((paq) => paq.Id >= 8);
+  eliminar() {
+    const BajaCat = {
+      ...this.EliminarCategoriaGroup.value,
+      _Id: this.categoria._id,
+    };
+    console.log('Se va a borrar la cat con id: ' + BajaCat._Id);
+    this.msg = 'Eliminando categoria con id: ' + BajaCat._Id;
 
-  obtener_PaquetesyVentas_Vendedor(
-    ventas: VentaResponse[],
-    paquetes: Paquete[]
-  ) {
-    console.log('Obtengo ventas...');
-    let ventapaquete: VentaPaquete;
-    this.Paquetes_Vendedor = [];
+    this.CategoriaService.borrarcategoria(BajaCat._Id).subscribe(
+      () => {
+        console.log('se borro categoria: ');
 
-    paquetes.forEach((paquete) => {
-      let frs = ventas.filter((ven) => paquete.id == ven.id_paquete);
-      frs.forEach((venta) => {
-        ventapaquete = {
-          idPaquete: paquete.id,
-          nombrePaquete: paquete.nombre,
-          precioPaquete:
-            paquete.precio_mayor * venta.cantidad_mayores +
-            paquete.precio_menor * venta.cantidad_menores,
-          nombreCliente: venta.nombre_cliente,
-          cantidad_mayores: venta.cantidad_mayores,
-          cantidad_menores: venta.cantidad_menores,
-        };
-        this.Paquetes_Vendedor.push(ventapaquete);
-        //console.log(JSON.stringify(this.Paquetes_Vendedor));
-      });
-    });
+        this.EliminarCategoriaGroup.reset();
+        this.obtener_categorias(false);
+        this.obtener_eventos();
+        this.msg = '';
+      },
+
+      ({ error: { mensaje } }) => {
+        this.msg = mensaje;
+        console.log('Mensaje de error al eliminar categoria: ' + this.msg);
+      }
+    );
+
+    //this.CategoriaService.borrarcategoria(BajaCat._Id);
+    this.EliminarCategoriaGroup.reset();
+    this.obtener_categorias(false);
   }
 
-  cantidad_paquetes(ventas: VentaPaquete[]) {
-    console.log('Obtengo cantidad paquetes vendidos...');
-    //let groupedVentas = this.groupArrayOfObjects(ventas, 'idPaquete');
-    //Array.from(groupedVentas.entries())
-    let idpaquetes: number[];
-    ventas.forEach((venta) => {
-      idpaquetes.forEach((paq) => {
-        venta.idPaquete != paq ? idpaquetes.push(venta.idPaquete) : '';
-      });
-    });
-    return idpaquetes.length;
+  desactivarEvento(idEvento: String) {
+    console.log('id evento a desactivar ' + idEvento);
+    this.EventoService.desactivarEvento(idEvento).subscribe(
+      () => {
+        this.obtener_eventos();
+        this.msg = '';
+      },
+      ({ error: { mensaje } }) => {
+        this.msg = mensaje;
+        console.log('Mensaje de error al desactivar alerta: ' + this.msg);
+      }
+    );
   }
 
-  obtener_personas_destino(paquetes: Paquete[], ventas: VentaResponse[]) {
-    console.log('Obtengo paquetes con cantidad personas...');
-    //let pdventas = [];
+  obtener_eventos() {
+    console.log('Obtengo eventos...');
+    this.EventoService.geteventos().subscribe(
+      (eve) => {
+        console.log('Eventos: ' + eve.toString());
+        this.EventoService.setEventos(<Evento[]>eve);
+        console.log('se obtuvo eventos: ' + this.EventoService.eventos);
 
-    paquetes.forEach((paq) => {
-      let frs = ventas.filter((element) => element.id_paquete === paq.id);
+        this.eventos = this.EventoService.eventos;
+        this.obtener_cant_eventos_categoria(this.eventos, this.categorias);
+        //this.ver_eventos(this.eventos);
+        this.desactivaractivarcombo_eventos('Todas');
+      },
+
+      ({ error: { mensaje } }) => {
+        this.msg = mensaje;
+        console.log('Mensaje de error al obtener eventos: ' + this.msg);
+      }
+    );
+  }
+
+  obtener_cant_eventos_categoria(eventos: Evento[], categorias: Categoria[]) {
+    console.log('Obtengo cantidad de eventos por categoria...');
+    this.CantCategoriaEventos = [];
+
+    categorias.forEach((cat) => {
+      let frs = eventos.filter((element) => element.categoria._id === cat._id);
       var cantidad = 0;
 
       frs.forEach((element) => {
-        cantidad += element.cantidad_mayores + element.cantidad_menores;
+        cantidad++;
       });
 
-      let ventapaquete = {
-        id_paquete: paq.id,
+      let cantcateve = {
+        idcategoria: cat._id,
+        nombre: cat.nombre,
         cantidad: cantidad,
-        nombre: paq.nombre,
       };
 
-      paq.id != 0 ? this.PaqueteCantPersonas.push(ventapaquete) : ''; //porque el primero es choose one
+      cat._id != '0' ? this.CantCategoriaEventos.push(cantcateve) : '';
     });
-    //return pdventas;
-    //console.log('ventas  por paquete: ' + JSON.stringify(pdventas));
   }
 
-  parseData(data) {
-    if (!data) return {};
-    if (typeof data === 'object') return data;
-    if (typeof data === 'string') return JSON.parse(data);
-
-    return {};
+  obtener_categorias_por_mes() {
+    /*
+    let evexmes = {
+      mes: eve.fechaPublicacion.getMonth(),
+      anio: eve.fechaPublicacion.getFullYear(),
+      cantidad: cantidad,
+    }; */
+    //this.CantEventosxMes.push(evexmes);
+    // this.CantEventosxMes.sort();
   }
 
-  groupArrayOfObjects(list: VentaPaquete[], key: string) {
-    return list.reduce(function (rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x);
-      return rv;
-    }, {});
+  checkButtonDesactivar(evento: Evento) {
+    if (evento.estaActivo) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  ver_eventos(eventos: Evento[]) {
+    console.log('Obtengo  eventos...');
+
+    eventos.forEach((evento) => {
+      console.log(
+        'eventos: id: ' +
+          evento._id +
+          ' titulo: ' +
+          evento.titulo +
+          ' idcategoria ' +
+          evento.categoria._id +
+          ' idusuario ' +
+          evento.usuario._id
+      );
+    });
+  }
+
+  desactivaractivarcombo_eventos(seleccionado) {
+    console.log('Obtengo  combo seleccionado...' + seleccionado);
+    this.eventosaux = [] = [];
+    if (seleccionado == 'Activas') {
+      this.eventos.forEach((evento) => {
+        if (evento.estaActivo == true) {
+          this.eventosaux.push(evento);
+        }
+      });
+    } else if (seleccionado == 'Inactivas') {
+      this.eventos.forEach((evento) => {
+        if (evento.estaActivo == false) {
+          this.eventosaux.push(evento);
+        }
+      });
+    } else {
+      this.obtener_eventos();
+      this.eventosaux = this.eventos;
+    }
+  }
+
+  logOut() {
+    this.AdminService.logOut();
+    this.router.navigate(['/login']);
   }
 }
